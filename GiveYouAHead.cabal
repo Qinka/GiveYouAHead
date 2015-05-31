@@ -1,0 +1,45 @@
+name: GiveYouAHead
+version: 0.1
+cabal-version: 1.10
+build-type: Simple
+license: UnspecifiedLicense
+homepage: https://github.com/Qinka/GiveYouAHead
+package-url: https://github.com/Qinka/GiveYouAHead
+description:
+    An auto-creater to create a form of source
+category: https://github.com/Qinka/GiveYouAHead
+author: Qinka
+tested-with: GHC -any
+
+executable GiveYouAHead
+    main-is: Main.hs
+    build-depends:
+        old-time >=1.1,
+        base >=4,
+        directory >=1.1,
+        process >=1.2
+    hs-source-dirs: src
+    other-modules:
+        Settings
+        New
+        Help
+        Clean
+        Build
+        Settings.Data
+        New.Template
+        New.Note
+        New.Import
+        Common.Data
+        Common.Functions.IO
+        Common.Functions.FP
+        Build.FilesList
+        New
+        Build
+        New.Template
+        New.Note
+        New.Import
+        Common.Data
+        Common.Functions.FP
+        Build.FilesList
+    ghc-options: -Wall
+
