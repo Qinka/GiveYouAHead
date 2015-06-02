@@ -1,8 +1,9 @@
 name: GiveYouAHead
-version: 0.1
+version: 0.1.0.1
 cabal-version: 1.10
-build-type: Simple
+build-type: Custom
 license: UnspecifiedLicense
+copyright: Copyright (C) 2015 Qinka
 homepage: https://github.com/Qinka/GiveYouAHead
 package-url: https://github.com/Qinka/GiveYouAHead
 description:
@@ -31,14 +32,6 @@ executable GiveYouAHead
         New.Import
         Common.Data
         Common.Functions.IO
-        Common.Functions.FP
-        Build.FilesList
-        New
-        Build
-        New.Template
-        New.Note
-        New.Import
-        Common.Data
         Common.Functions.FP
         Build.FilesList
     ghc-options: -Wall

@@ -23,22 +23,29 @@ buildMain :: IO ()
 buildMain = do
     (_:lang:isDB:list) <- getArgs
     gC <- getDirectoryContents "."
-    gP <- getProgDir
+    gDD <- getDataDir
     setting <- getSetting
-    shSrc <- readFile (gP ++ "Data/"++(shell setting)++".cmap")
-    lSrc <- readFile (gP ++ "Data/"++lang++"/build.cmap")
+    shSrc <- readFile (gDD ++ "/data/shell"++shell setting ++ ".cmap")
+    lSrc <- readFile (gDD ++ "/data/language/"++lang++".cmap")
     shCMap <- getCmdMap shSrc
     lCMap <- getCmdMap lSrc
-    let
-        allMap = lCMap ++ shCMap ++ []
+    let allMap = lCMap ++ shCMap ++ []
         files = case list of
-            [] -> getFilesList (concat $ map (findKey lCMap) ["*FE"]) gC
-            _ -> getFilesList (concat $ map (findKey lCMap) ["*FE"]) (map list' list)
-        list' theid= (concat $ map (findKey lCMap) ["*SrcAhead",fileName setting,theid,"*SrcBack"])
-        in do
-            writeFile (concat $ map (findKey allMap) [".makefile.","*ShellFileBack"]) (concat $ map (findKey allMap) (makeMakeFile (read isDB ::Bool) files))
-            _ <- SP.createProcess $ SP.shell (concat $ map (findKey allMap) ["*SysShellRun"{- for system shell-} ," ",".makefile.","*ShellFileBack"])
-            return ()
+                 [] -> getFilesList (concatMap (findKey lCMap) ["*FE"]) gC
+                 _ -> getFilesList (concatMap (findKey lCMap) ["*FE"])
+                        (map list' list)
+        list' theid=concatMap (findKey lCMap) ["*SrcAhead", fileName setting, theid, "*SrcBack"]
+       in
+       do writeFile
+            (concat $ map (findKey allMap) [".makefile", "*ShellFileBack"])
+            (concat $
+               map (findKey allMap) (makeMakeFile (read isDB :: Bool) files))
+          _ <- SP.createProcess $
+                 SP.shell
+                   (concat $
+                      map (findKey allMap)
+                        ["*SysShellRun", " ", ".makefile", "*ShellFileBack"])
+          return ()
 
 
 

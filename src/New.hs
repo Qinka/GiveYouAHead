@@ -17,18 +17,16 @@ newMain :: IO ()
 newMain = do
     setting <- getSetting
     (_:lang:idNum:iL) <- getArgs
-    gP <- getProgDir
+    gDD <- getDataDir
     time <- getClockTime
-    otherM <- readFile (gP ++"Data/"++lang++"/other.cmap")
-    noteM <- readFile (gP ++"Data/"++lang++"/note.cmap")
-    importM <-readFile (gP ++"Data/"++lang++"/import.cmap")
-    templateM <- readFile (gP ++"Data/"++lang++"template.cmap")
-    otherCMap <- getCmdMap otherM
-    noteCMap <- getCmdMap noteM
-    importCMap <- getCmdMap importM
-    tplCMap <- getCmdMap templateM
-    let allCMap = otherCMap ++ noteCMap ++ importCMap ++ tplCMap ++[("*noteMarkLine",(concat $ take 30 $ repeat (findKey noteCMap "*NoteMark"))),("*timeLine","\t Created tIme\t:\t"++(show time)) ]in
-        writeFile (concat $ map (findKey allCMap) ["*SrcAhead",fileName setting,idNum,"*SrcBack"]) (concat $ getSrc allCMap iL)
+    langM <- readFile (gDD ++"/data/language/"++lang++".cmap")
+    personM <- readFile (gDD ++"/data/person.cmap")
+    langCMap <- getCmdMap langM
+    personCMap <- getCmdMap personM
+    let allCMap = langCMap ++ personCMap ++[("*noteMarkLine",
+                                              concat $ replicate 30 (findKey langCMap "*NoteMark")),("*timeLine","\t Created tIme\t:\t" ++ show time) ]in
+        writeFile (concatMap (findKey allCMap)
+                      ["*SrcAhead", fileName setting, idNum, "*SrcBack"]) (concat $ getSrc allCMap iL)
     return ()
 
 
@@ -36,6 +34,7 @@ getSrc :: [(String,String)] -> [String]-> [String]
 getSrc ncMap iL=
     map (addNoteMark (findKey ncMap "*NoteMark") ) (noteText ++ importText ++ templateText)
     where
-        noteText =  map (addNoteMark (findKey ncMap "*NoteMark")) (map (findKey ncMap) makeNotes)
-        importText = ((map (findKey ncMap)).linkStringList.(map addImport)) iL
+        noteText =  map (addNoteMark (findKey ncMap "*NoteMark") . findKey ncMap)
+                       makeNotes
+        importText = (map (findKey ncMap) . linkStringList . map addImport) iL
         templateText = map (findKey ncMap) templateList

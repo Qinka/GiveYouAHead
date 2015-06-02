@@ -20,10 +20,10 @@ makeCleanCmd = ["*Del"," ","*DelForce"," ","*DelQuite"," ","*DelList"]
 
 
 cleanMain = do
-    gP <- getProgDir
+    gDD <- getDataDir
     setting <- getSetting
-    ssSrc <- readFile (gP ++ "Data/"++(sysShell setting)++".cmap")
+    ssSrc <- readFile (gDD ++ "/data/shell"++sysShell setting ++ ".cmap")
     ssCMap <- getCmdMap ssSrc
-    _ <- SP.createProcess $ SP.shell $ concat $ map (findKey ssCMap) makeCleanCmd
+    _ <- SP.createProcess $ SP.shell $ concatMap (findKey ssCMap) makeCleanCmd
     return ()
 

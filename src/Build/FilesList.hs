@@ -9,4 +9,4 @@ getFilesList fe (x:xs)
     | x'fe == fe = x:getFilesList fe xs
     | otherwise = getFilesList fe xs
     where
-        x'fe = (reverse.(takeWhile (\y -> y/='.')).reverse) x
+        x'fe = (reverse.takeWhile (/= '.') . reverse) x

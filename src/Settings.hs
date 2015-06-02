@@ -11,6 +11,6 @@ import Settings.Data
 
 getSetting :: IO Setting
 getSetting = do
-    gP <- getProgDir
-    stSrc <- readFile (gP++"Data/Setting.dat")
+    gDD <- getDataDir
+    stSrc <- readFile (gDD++"/data/detting.dat")
     return (read stSrc ::Setting)
