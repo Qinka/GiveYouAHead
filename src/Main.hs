@@ -18,7 +18,7 @@ main =  do
 
 doMain :: IO ()
 doMain = do
-    (_:cmd:_) <-getArgs
+    (cmd:_) <-getArgs
     case cmd of
         "new"           -> newMain
         "build"         -> buildMain

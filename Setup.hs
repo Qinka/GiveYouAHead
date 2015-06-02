@@ -13,10 +13,19 @@ data Setting = Setting
 
 
 
+
 main = do
     (x:_) <- getArgs
     putStrLn $ show x
+    y <- return False
     if x == "build" then do
+            putStrLn "is create data?"
+            y <- readLn :: IO Bool
+            putStrLn ""
+        else do
+            y <- return False
+            putStrLn ""
+    if x == "build" && y then do
             dir <- getAppUserDataDirectory "GiveYouAHead"
             isE <- doesDirectoryExist dir
             if isE == True then putStrLn "" else createDirectory dir

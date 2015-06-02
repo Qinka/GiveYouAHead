@@ -19,14 +19,12 @@ newMain = do
     (_:lang:idNum:iL) <- getArgs
     gDD <- getDataDir
     time <- getClockTime
-    langM <- readFile (gDD ++"/data/language/"++lang++".cmap")
-    personM <- readFile (gDD ++"/data/person.cmap")
-    langCMap <- getCmdMap langM
-    personCMap <- getCmdMap personM
+    langCMap <- getCmdMap (gDD ++"/data/language/"++lang++".cmap")
+    personCMap <- getCmdMap (gDD ++"/data/person.cmap")
     let allCMap = langCMap ++ personCMap ++[("*noteMarkLine",
                                               concat $ replicate 30 (findKey langCMap "*NoteMark")),("*timeLine","\t Created tIme\t:\t" ++ show time) ]in
-        writeFile (concatMap (findKey allCMap)
-                      ["*SrcAhead", fileName setting, idNum, "*SrcBack"]) (concat $ getSrc allCMap iL)
+        writeFile (concat $ map (findKey allCMap)
+                      ["*SrcAhead", fileName setting, idNum, "*SrcBack"])  (concat $ getSrc allCMap iL)
     return ()
 
 
