@@ -16,16 +16,15 @@ import System.Environment
 cleanMain ::IO ()
 makeCleanCmd :: [String]
 
-makeCleanCmd = ["*Del"," ","*DelForce"," ","*DelQuite"," ","*DelList"]
+makeCleanCmd = ["*Del"," ","*DelForce"," ","*DelQuite"," ","*delList"]
 
 
 cleanMain = do
-    (_:lang:_) <- getArgs
     gDD <- getDataDir
     setting <- getSetting
     ssCMap <- getCmdMap (gDD ++ "/data/shell/"++sysShell setting ++ ".cmap")
-    langCMap <- geyCmdMap (gDD ++ "/data/language/"++Lang++".cmap")
-    let allCMap = ssCMap ++ langclap ++[] in
-        _ <- SP.createProcess $ SP.shell $ concat $ map (findKey ssCMap) makeCleanCmd
-    return ()
+    delListSrc <-readFile (gDD ++ "/data/delList.dat")
+    let allCMap = ssCMap ++ [("*delList",concat $ map (" "++) (read delListSrc ::[String] )) ] in do
+        _ <- SP.createProcess $ SP.shell $ concat $ map (findKey allCMap) makeCleanCmd
+        return ()
 

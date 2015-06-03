@@ -1,11 +1,14 @@
-name: GiveYouAHead
+﻿name: GiveYouAHead
 version: 0.1.0.1
 cabal-version: 1.10
 build-type: Custom
-license: UnspecifiedLicense
+license: BSD3
+license-files: LICENSE , 许可证
 copyright: Copyright (C) 2015 Qinka
+maintainer: Qinka
 homepage: https://github.com/Qinka/GiveYouAHead
 package-url: https://github.com/Qinka/GiveYouAHead
+synopsis: Give you a head
 description:
     An auto-creater to create a form of source
 category: https://github.com/Qinka/GiveYouAHead

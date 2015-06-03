@@ -19,18 +19,17 @@ main = do
     putStrLn $ show x
     y <- return False
     if x == "build" then do
-            putStrLn "is create data?"
-            y <- readLn :: IO Bool
-            putStrLn ""
-        else do
-            y <- return False
-            putStrLn ""
-    if x == "build" && y then do
+        putStrLn "is create data?"
+        y <- readLn :: IO Bool
+        putStrLn ""
+        if x == "build" && y then do
             dir <- getAppUserDataDirectory "GiveYouAHead"
             isE <- doesDirectoryExist dir
-            if isE == True then putStrLn "" else createDirectory dir
+            if isE then putStrLn "" else createDirectory dir
+            isE <- doesFileExist (dir ++ "/data/delList.dat")
+            if isE then putStrLn "" else writeFile  (dir ++ "/data/delList.dat") (show ([" "]::[String]))
             isE <- doesDirectoryExist (dir++"/data")
-            if isE == True then putStrLn "" else createDirectory (dir++"/data")
+            if isE then putStrLn "" else createDirectory (dir++"/data")
             putStrLn "Input you project common title (by String's String)"
             tl <- readLn ::IO String
             putStrLn "Input you personal coding informations"
@@ -46,6 +45,9 @@ main = do
                     writeFile (dir ++ "/data/person.cmap") (show personM)
                     writeFile (dir ++ "/data/setting.dat") (show (Setting sh fn ss))
             defaultMain
-        else do
+            else do
+                defaultMain
+       else do
+            y <- return False
             defaultMain
 

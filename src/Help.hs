@@ -16,7 +16,7 @@ helpMain = do
         "\t\t"++progName++" build [language]",
         "\t\t"++progName++" build [language] [the list of id] ",
         "\tClean the directory's useless files",
-        "\t\t"++progName++"clean [language]",
+        "\t\t"++progName++"clean",
         ""
         ]
 

@@ -23,7 +23,7 @@ doMain = do
     case cmd of
         "new"           -> if length xs >= 2 then newMain else helpMain
         "build"         -> if length xs >= 2 then buildMain else helpMain
-        "clean"         -> if length xs == 1 then cleanMain else helpMain
+        "clean"         -> if length xs == 0 then cleanMain else helpMain
         "setting"       -> if length xs == 3 then settingMain else helpMain
         "help"          -> helpMain
         _               -> helpMain
