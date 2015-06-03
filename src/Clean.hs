@@ -8,7 +8,7 @@ import Settings
 import Settings.Data
 
 import qualified System.Process as  SP
---import System.Environment
+import System.Environment
 
 
 
@@ -20,9 +20,12 @@ makeCleanCmd = ["*Del"," ","*DelForce"," ","*DelQuite"," ","*DelList"]
 
 
 cleanMain = do
+    (_:lang:_) <- getArgs
     gDD <- getDataDir
     setting <- getSetting
     ssCMap <- getCmdMap (gDD ++ "/data/shell/"++sysShell setting ++ ".cmap")
-    _ <- SP.createProcess $ SP.shell $ concat $ map (findKey ssCMap) makeCleanCmd
+    langCMap <- geyCmdMap (gDD ++ "/data/language/"++Lang++".cmap")
+    let allCMap = ssCMap ++ langclap ++[] in
+        _ <- SP.createProcess $ SP.shell $ concat $ map (findKey ssCMap) makeCleanCmd
     return ()
 

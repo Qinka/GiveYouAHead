@@ -1,9 +1,22 @@
 --IO
 module Help where
 
+import System.Environment
 
 helpMain ::IO()
-helpMain = putStr $
-              unlines
-                 ["\t", "GvieYouAHead\t\t\t0.1", "preRelease version",
-                  "Pretend that there has the document of help", "\t"]
+
+helpMain = do
+    progName <- getProgName
+    putStrLn $ unlines [
+        "\tGiveYouAHead\t\t\t previous version 0.1.0.1 ",
+        "\tCommand :",
+        "\tCreate a new file ",
+        "\t\t"++progName++" new [language] [id] [the list of import]",
+        "\tBuild the program(s) ",
+        "\t\t"++progName++" build [language]",
+        "\t\t"++progName++" build [language] [the list of id] ",
+        "\tClean the directory's useless files",
+        "\t\t"++progName++"clean [language]",
+        ""
+        ]
+
