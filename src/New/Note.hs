@@ -17,7 +17,7 @@ makeNotes = [
     "*TitleLine","\n",
     "*WriterLine","\n",
     "*timeLine","\n",
-    "\tProblem\t:\t","*probId","\n",
+    "\tProblem\t","*probId","\n",
     "\n",
     "\tThis file is auto-created by GiveYouAHead.\n",
     "\tGiveYouAHead is a final-alternate of Auto Formwork (mkSource).\n",
