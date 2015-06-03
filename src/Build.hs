@@ -25,16 +25,16 @@ buildMain = do
     gC <- getDirectoryContents "."
     gDD <- getDataDir
     setting <- getSetting
-    shCMap <- getCmdMap (gDD ++ "/data/shell"++shell setting ++ ".cmap")
+    shCMap <- getCmdMap (gDD ++ "/data/shell/"++shell setting ++ ".cmap")
     lCMap <- getCmdMap (gDD ++ "/data/language/"++lang++".cmap")
     let allMap = lCMap ++ shCMap ++ []
         files = case list of
-                 [] -> getFilesList (concat $ map (findKey lCMap) ["*FE"]) gC
-                 _ -> getFilesList (concat $ map (findKey lCMap) ["*FE"])
-                        (map list' list)
+                 [] -> getFilesList (findKey lCMap "*FE") gC
+                 _ -> getFilesList (findKey lCMap "*FE") (map list' list)
         list' theid=concat $ map (findKey lCMap) ["*SrcAhead", fileName setting, theid, "*SrcBack"]
        in
-       do writeFile
+       do putStrLn $ show files
+          writeFile
             (concat $ map (findKey allMap) [".makefile", "*ShellFileBack"])
             (concat $
                map (findKey allMap) (makeMakeFile (read isDB :: Bool) files))

@@ -30,7 +30,7 @@ newMain = do
 
 getSrc :: [(String,String)] -> [String]-> [String]
 getSrc ncMap iL=
-    map (addNoteMark (findKey ncMap "*NoteMark") ) (noteText ++ importText ++ templateText)
+    (map ((++"\n").(addNoteMark (findKey ncMap "*NoteMark") )) ((lines.concat) (noteText))) ++ importText ++ templateText
     where
         noteText =  map (addNoteMark (findKey ncMap "*NoteMark") . findKey ncMap)
                        makeNotes

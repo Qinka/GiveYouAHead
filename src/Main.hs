@@ -18,11 +18,11 @@ main =  do
 
 doMain :: IO ()
 doMain = do
-    (cmd:_) <-getArgs
+    (cmd:xs) <-getArgs
     case cmd of
-        "new"           -> newMain
-        "build"         -> buildMain
-        "clean"         -> cleanMain
+        "new"           -> if length xs >= 2 then newMain else helpMain
+        "build"         -> if length xs >= 2 then buildMain else helpMain
+        "clean"         -> if length xs <=0 then cleanMain else helpMain
         "help"          -> helpMain
         _               -> helpMain
 
