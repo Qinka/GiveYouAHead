@@ -51,7 +51,7 @@ buildMain = do
 
 
 makeMakeFileStep isDebug fName =
-    ["*Compiler"," ",(if isDebug then "*Debug" else " "),"*Object"," ",(getFilesMainName fName),"*ExecutableFE"," ",fName,"\n"]
+    ["*Compiler"," ",(if isDebug then "*Debug" else " ")," ","*Object"," ",(getFilesMainName fName),"*ExecutableFE"," ",fName,"\n"]
 
 makeMakeFile isDebug files =
     ["*MakefileBegin","\n"] ++ (linkStringList makes)++["*MakefileEnd"]
