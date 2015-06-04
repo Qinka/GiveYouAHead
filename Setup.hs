@@ -26,10 +26,10 @@ main = do
             dir <- getAppUserDataDirectory "GiveYouAHead"
             isE <- doesDirectoryExist dir
             if isE then putStrLn "" else createDirectory dir
-            isE <- doesFileExist (dir ++ "/data/delList.dat")
-            if isE then putStrLn "" else writeFile  (dir ++ "/data/delList.dat") (show ([" "]::[String]))
             isE <- doesDirectoryExist (dir++"/data")
             if isE then putStrLn "" else createDirectory (dir++"/data")
+            isE <- doesFileExist (dir ++ "/data/delList.dat")
+            if isE then putStrLn "" else writeFile  (dir ++ "/data/delList.dat") (show ([" "]::[String]))
             putStrLn "Input you project common title (by String's String)"
             tl <- readLn ::IO String
             putStrLn "Input you personal coding informations"

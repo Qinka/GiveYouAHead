@@ -9,8 +9,9 @@ makeNotes :: [String]
 
 addNoteMark = (++)
 makeNotes = [
-    "*noteMarkLine",
-    "*COB","\n","\n",
+    "*noteMarkLine","\n",
+    "*COB","\n",
+    "\n",
     "*COE","\n",
     "*noteMarkLine","\n",
     " \n",
