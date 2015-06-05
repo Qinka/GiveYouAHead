@@ -1,5 +1,5 @@
 name: GiveYouAHead
-version: 0.1.0.2
+version: 0.1.1.0
 cabal-version: >=1.10
 build-type: Custom
 license: BSD3

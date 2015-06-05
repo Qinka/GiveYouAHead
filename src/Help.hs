@@ -8,7 +8,7 @@ helpMain ::IO()
 helpMain = do
     progName <- getProgName
     putStrLn $ unlines [
-        "\tGiveYouAHead\t\t\t previous version 0.1.0.2 ",
+        "\tGiveYouAHead\t\t\t previous version 0.1.1.0 ",
         "\tCommand :",
         "\tCreate a new file ",
         "\t\t"++progName++" new [language] [id] [the list of import]",
