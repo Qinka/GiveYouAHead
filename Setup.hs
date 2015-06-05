@@ -50,4 +50,5 @@ main = do
        else do
             y <- return False
             defaultMain
+    defaultMain
 
