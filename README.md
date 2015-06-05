@@ -30,7 +30,7 @@ GiveYouAHead 就是如此的软件，起初，GYAH 被名为 WriteYouAHead ,目�
 
 ## 坐等编译好的可执行文件？？
 
-草民在用 Windows ，所以可能提供 win下的 已打包好的 可执行 文件 **坐等 GithubPages 搞好先！！**
+草民在用 Windows ，所以可能提供 win下的 64位的 已打包好的 可执行 文件 **坐等 GithubPages 搞好先！！**
 
 ## How to use ?
 
@@ -38,10 +38,17 @@ GiveYouAHead 就是如此的软件，起初，GYAH 被名为 WriteYouAHead ,目�
 
 ## 特殊版本说明 
 
-### preRelease 0.1
+### preview version 0.1.0.2
 
-这个版本,没有测试，也没有相应的数据文件，草民，还在作死尝试把数据单独做成包
+已经可以使用 的版本，CompilerExtraOptions 功能可用。
 
 ### preview version 0.1.0.1
 
 基本完工的版本，待测试，乃有bug，已有不成样的数据包。。
+
+
+### preRelease 0.1
+
+这个版本,没有测试，也没有相应的数据文件，草民，还在作死尝试把数据单独做成包
+
+

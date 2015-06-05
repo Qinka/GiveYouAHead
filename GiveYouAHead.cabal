@@ -9,7 +9,7 @@ maintainer: Qinka
 homepage: https://github.com/Qinka/GiveYouAHead
 package-url: https://github.com/Qinka/GiveYouAHead
 bug-reports: https://github.com/Qinka/GiveYouAHead/issues
-synopsis: A application to auto-create note , to auto-build to auto-clean
+synopsis: A application to auto-create note , to auto-build，and  to auto-clean
 description:
     An auto-creater to create a form of source
 category: https://github.com/Qinka/GiveYouAHead
@@ -20,9 +20,6 @@ source-repository head
     type: git
     location: https://github.com/Qinka/GiveYouAHead.git
 
-source-repository head
-    type: git
-    location: https://github.com/Qinka/GiveYouAHead.git
 
 executable GiveYouAHead
     main-is: Main.hs
