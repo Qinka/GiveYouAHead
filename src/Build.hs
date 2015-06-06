@@ -25,8 +25,8 @@ returnExtras :: String -> String ->String -> [String] -> IO [String]
 returnExtras _ _ _ [] = return []
 returnExtras nM oB oE (x:xs) = do
     rt <- getFileOptions nM oB oE x
-    x <- returnExtras nM oB oE xs
-    return (rt:x)
+    z <- returnExtras nM oB oE xs
+    return (rt:z)
 
 
 buildMain = do
@@ -70,5 +70,3 @@ makeMakeFile isDebug files =
     ["*MakefileBegin","\n"] ++ (linkStringList makes)++["*MakefileEnd"]
     where
         makes = map (makeMakeFileStep isDebug) files
-
-

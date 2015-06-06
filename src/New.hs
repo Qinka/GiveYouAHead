@@ -9,6 +9,7 @@ import  Common.Functions.IO
 import  Settings
 import  Settings.Data
 
+--outside
 import System.Environment
 import System.Time
 
