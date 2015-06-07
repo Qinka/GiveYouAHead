@@ -4,13 +4,17 @@ module Common.Functions.IO where
 import System.Directory
 --import System.Environment
 
+--inside
+import Common.Data
+
+
 getCmdMap   ::  String          --FileName
-            ->  IO [(String,String)]
+            ->  IO CmdMap
 
 getDataDir :: IO FilePath
 
 getCmdMap filename = do
     filetext <- readFile filename
-    return (read filetext :: [(String,String)])
+    return (read filetext :: CmdMap )
 
 getDataDir =  getAppUserDataDirectory "GiveYouAHead"

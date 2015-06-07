@@ -40,8 +40,9 @@ buildMain = do
     setting <- getSetting
     shCMap <- getCmdMap (gDD ++ "/data/shell/"++shell setting ++ ".cmap")
     lCMap <- getCmdMap (gDD ++ "/data/language/"++lang++".cmap")
+    cpCMap <- getCmdMap (gDD ++ "/data/compiler/"++findKey "*DefaultCompiler"++".cmap")
     let
-        allMap' = lCMap ++ shCMap ++ []
+        allMap' = cpCMap ++ lCMap ++ shCMap ++ []
         files = case list of
                  [] -> getFilesList (findKey lCMap "*FE") gC
                  _ -> getFilesList (findKey lCMap "*FE") (map list' list)
