@@ -1,7 +1,8 @@
 --IO & FP
 module Build.ExtraCompileOptions where
 
-import System.IO
+--outside
+--import System.IO
 
 getOptions :: String        --noteMark
            -> String        --optionBegin
@@ -22,6 +23,7 @@ delNoteMark :: String       --notemark
 getOptBegin :: String           --option begin text
             -> [String]         --file
             -> [String]         --rt
+            
 getOptEnd   :: String           --option end text
             -> [String]         --file
             -> [String]         --rt
@@ -51,5 +53,3 @@ delNoteMark _ [] = error "why?"
 delNoteMark (n:nM) (s:str)
     | n == s = delNoteMark nM str
     | otherwise = error "!why?"
-
-

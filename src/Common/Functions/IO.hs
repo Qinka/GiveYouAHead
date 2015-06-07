@@ -1,7 +1,8 @@
 --IO
 module Common.Functions.IO where
+--outside
 import System.Directory
-import System.Environment
+--import System.Environment
 
 getCmdMap   ::  String          --FileName
             ->  IO [(String,String)]

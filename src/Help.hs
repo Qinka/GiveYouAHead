@@ -1,6 +1,7 @@
 --IO
 module Help where
 
+--outside
 import System.Environment
 
 helpMain ::IO()
@@ -8,6 +9,7 @@ helpMain ::IO()
 helpMain = do
     progName <- getProgName
     putStrLn $ unlines [
+        "中文测试??!!grg",
         "\tGiveYouAHead\t\t\t previous version 0.1.1.0 ",
         "\tCommand :",
         "\tCreate a new file ",
@@ -22,4 +24,3 @@ helpMain = do
         "\tBug report: https://github.com/Qinka/GiveYouAHead/issues",
         ""
         ]
-

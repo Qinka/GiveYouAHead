@@ -1,10 +1,11 @@
 --IO
 module Main (main)where
 
-
+--outside
 import System.Environment
 --import System.IO
 
+--inside
 import Help
 import New
 import Clean
@@ -17,8 +18,8 @@ main =  do
     case length args of
         0 -> helpMain
         _ -> doMain
---note
---note1
+
+
 doMain :: IO ()
 doMain = do
     (cmd:xs) <-getArgs

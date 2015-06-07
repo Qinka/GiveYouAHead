@@ -12,4 +12,3 @@ data Setting = Setting
         fileName :: String,
         sysShell ::String
     } deriving (Read,Show)
-

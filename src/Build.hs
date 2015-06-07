@@ -1,6 +1,12 @@
 --IO
 module Build where
 
+--outside
+import System.Directory
+import System.Environment
+import qualified System.Process as  SP
+
+--inside
 import Build.FilesList
 import Build.ExtraCompileOptions
 import Common.Functions.FP
@@ -8,9 +14,7 @@ import Common.Functions.IO
 import Settings
 import Settings.Data
 
-import System.Directory
-import System.Environment
-import qualified System.Process as  SP
+
 
 makeMakeFileStep :: Bool                -- is DEBUG
                  -> String              -- file name
@@ -41,20 +45,18 @@ buildMain = do
         files = case list of
                  [] -> getFilesList (findKey lCMap "*FE") gC
                  _ -> getFilesList (findKey lCMap "*FE") (map list' list)
-        list' theid=concat $ map (findKey lCMap) ["*SrcAhead", fileName setting, theid, "*SrcBack"]
+        list' theid=concatMap (findKey lCMap) ["*SrcAhead", fileName setting, theid, "*SrcBack"]
        in
        do
           extras <- returnExtras (findKey lCMap "*NoteMark") (findKey lCMap "*COB") (findKey lCMap "*COE") files
-          let allMap = allMap' ++ (zip (map ("*extra"++) files) extras) in do
-            putStrLn $ show files
+          let allMap = allMap' ++ zip (map ("*extra"++) files) extras in do
+            print files
             writeFile
-                (concat $ map (findKey allMap) [".makefile", "*ShellFileBack"])
-                (concat $
-                    map (findKey allMap) (makeMakeFile (read isDB :: Bool) files))
+                (concatMap (findKey allMap) [".makefile", "*ShellFileBack"])
+                (concatMap (findKey allMap) (makeMakeFile (read isDB :: Bool) files))
             _ <- SP.createProcess $
                  SP.shell
-                   (concat $
-                      map (findKey allMap)
+                   (concatMap (findKey allMap)
                         ["*SysShellRun", " ", ".makefile", "*ShellFileBack"])
             return ()
 
@@ -64,9 +66,9 @@ buildMain = do
 
 
 makeMakeFileStep isDebug fName=
-    ["*Compiler"," ",(if isDebug then "*Debug" else " ")," ","*Object"," ",(getFilesMainName fName),"*ExecutableFE"," ",fName," ","*extra"++fName,"\n"]
+    ["*Compiler"," ",if isDebug then "*Debug" else " "," ","*Object"," ",getFilesMainName fName,"*ExecutableFE"," ",fName," ","*extra"++fName,"\n"]
 
 makeMakeFile isDebug files =
-    ["*MakefileBegin","\n"] ++ (linkStringList makes)++["*MakefileEnd"]
+    ["*MakefileBegin","\n"] ++ linkStringList makes++["*MakefileEnd"]
     where
         makes = map (makeMakeFileStep isDebug) files

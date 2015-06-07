@@ -2,11 +2,14 @@
 
 module Settings  where
 
+--outside
+import System.Environment
+import System.IO
+
+--inside
 import Common.Functions.IO
 import Settings.Data
-import System.Environment
 
-import System.IO
 
 
 
@@ -22,13 +25,11 @@ settingMain = do
     gDD <- getDataDir
     hD <- openFile (gDD++"/data/setting.dat") ReadMode
     stSrc <- hGetLine hD
-    st <-  return (read stSrc ::Setting)
+    let st = read stSrc ::Setting
     hClose hD
     let
         sh' = if sh == "_" then shell st else sh
         fn' = if fn == "_" then fileName st else fn
         ss' = if ss == "_" then sysShell st else ss
-        in do
-            writeFile (gDD ++ "/data/setting.dat") (show (Setting sh' fn' ss'))
+        in writeFile (gDD ++ "/data/setting.dat") (show (Setting sh' fn' ss'))
     return ()
-

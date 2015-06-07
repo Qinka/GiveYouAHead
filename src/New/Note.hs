@@ -26,7 +26,7 @@ makeNotes = [
     "\tThis file is auto-created by GiveYouAHead.\n",
     "\tGiveYouAHead is a final-alternate of Auto Formwork (mkSource).\n",
     "\tAnd it is writen by Qinka (qinka@live.com) in Haskell.\n",
-    "\tVersion of GiveYouAHead : preview version 0.1.0.2 \n",
+    "\tVersion of GiveYouAHead : preview version 0.1.1.0 \n",
     "\n",
     "\tHomepage: https://github.com/Qinka/GiveYouAHead\n",
     "\tBug report: https://github.com/Qinka/GiveYouAHead/issues \n",
@@ -35,5 +35,3 @@ makeNotes = [
     "\t  ps this version may not be push to hackage.\n",
     "\n",
     "*noteMarkLine"]
-
-

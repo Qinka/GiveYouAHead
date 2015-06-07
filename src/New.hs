@@ -1,6 +1,7 @@
 --IO
 module New where
 
+--inside
 import  New.Import
 import  New.Note
 import  New.Template
@@ -24,14 +25,14 @@ newMain = do
     personCMap <- getCmdMap (gDD ++"/data/person.cmap")
     let allCMap = langCMap ++ personCMap ++[("*noteMarkLine",
                                               concat $ replicate 30 (findKey langCMap "*NoteMark")),("*timeLine","\tCreated tIme\t:\t" ++ show time), ("*probId",idNum) ]in
-        writeFile (concat $ map (findKey allCMap)
+        writeFile (concatMap (findKey allCMap)
                       ["*SrcAhead", fileName setting, idNum, "*SrcBack"])  (concat $ getSrc allCMap iL)
     return ()
 
 
 getSrc :: [(String,String)] -> [String]-> [String]
 getSrc ncMap iL=
-    (map ((++"\n").(addNoteMark (findKey ncMap "*NoteMark") )) ((lines.concat) (noteText))) ++ importText ++ templateText
+    map ((++"\n").addNoteMark (findKey ncMap "*NoteMark")) ((lines.concat) noteText) ++ importText ++ templateText
     where
         noteText =  map  ( findKey ncMap)  makeNotes
         importText = (map (findKey ncMap) . linkStringList . map addImport) iL

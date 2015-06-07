@@ -8,7 +8,7 @@ findKey ::  [(String,String)]                       --key
 
 getFilesMainName :: String -> String --is with dot
 
-getFilesMainName = reverse.dropWhile (/= '.') . reverse
+getFilesMainName = reverse . dropWhile (/= '.') . reverse
 
 
 linkStringList ::[[String]] -> [String]
@@ -18,5 +18,3 @@ findKey [] key = key
 findKey ((k,s):xs) key
                    | key == k = s
                    | otherwise = findKey xs key
-
-
