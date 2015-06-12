@@ -1,0 +1,34 @@
+--FP
+module GiveYouAHead.New.Note where
+
+addNoteMark ::  String --mk
+            ->  String --lines
+            ->  String
+
+makeNotes :: [String]
+
+addNoteMark = (++)
+
+makeNotes = [
+    "*noteMarkLine","\n",
+    "*EOB","\n",
+    "\n",
+    "*EOE","\n",
+    "*noteMarkLine","\n",
+    "\n",
+    "*TitleLine","\n",
+    "*WriterLine","\n",
+    "*timeLine","\n",
+    "\tProblem\t","*probId","\n",
+    "\n",
+    "\tlicense type: ","*License","\n",
+    "\tlicense file: \n",
+    "\n",
+    "\tThis file is auto--created by GiveYouAHead.\n",
+    "\tGiveYouAHead is written by Qinka (qinka@live.com) in Haskell.\n",
+    "\tVersion 0.2.0.0\n",
+    "\n",
+    "\tHomepage: https://github.com/Qinka/GiveYouAHead\n",
+    "\tBug report: https://github.com/Qinka/GiveYouAHead/issues\n",
+    "\n",
+    "*noteMarkLine","\n"]
