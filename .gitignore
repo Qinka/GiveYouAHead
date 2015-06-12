@@ -18,3 +18,4 @@ cabal.sandbox.config
 *.lkshw
 *.lkshs
 *.cabal~
+*.gitignore~
