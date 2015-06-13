@@ -4,9 +4,9 @@ module GiveYouAHead where
 import GiveYouAHead.New
 import GiveYouAHead.Build
 import GiveYouAHead.Clean
-import GiveYouAHead.Common
+--import GiveYouAHead.Common
 import GiveYouAHead.Help
-import Data.GiveYouAHead
+--import Data.GiveYouAHead
 
 
 gyahMain :: [String]
@@ -14,17 +14,18 @@ gyahMain :: [String]
 
 gyahMain args = case length args of
     0  -> help
-    otherwise -> doGyah args
+    _  -> doGyah args
 
 doGyah :: [String]
        -> IO ()
-doGyah args@(cmd:xs) =
+doGyah (cmd:xs) =
     case cmd of
         "new"           -> if length xs >= 2 then newMain xs else help
         "build"         -> if length xs >= 2 then buildMain xs else help
         "clean"         -> if null xs then clean else help
         "help"          -> help
         _               -> help
+doGyah _ = error "bad command!"
 
 gyah :: IO()
 gyah = do

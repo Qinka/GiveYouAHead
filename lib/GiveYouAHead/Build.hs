@@ -33,13 +33,13 @@ returnExtras nM oB oE (x:xs) = do
     return (rt:z)
 
 
-buildMain args@(lang:isDB:list) = do
+buildMain (lang:isDB:list) = do
     gC <- getDirectoryContents "."
     gDD <- getDataDir
-    setting <- getSettings $ gDD ++ "/data/settings.dat"
-    shCMap <- getCmdMap $ gDD ++ "/data/shell/"++dfShell setting ++ ".cmap"
-    lCMap <- getCmdMap $ gDD ++ "/data/language/"++lang++".cmap"
-    cpCMap <- getCmdMap $ gDD ++ "/data/compiler/" ++ findKey lCMap "*DefaultCompiler" ++".cmap"
+    setting <- getSettings $ gDD ++ "/settings.dat"
+    shCMap <- getCmdMap $ gDD ++ "/shell/"++dfShell setting ++ ".cmap"
+    lCMap <- getCmdMap $ gDD ++ "/language/"++lang++".cmap"
+    cpCMap <- getCmdMap $ gDD ++ "/compiler/" ++ findKey lCMap "*DefaultCompiler" ++".cmap"
     let allMap' = cpCMap ++ lCMap ++ shCMap ++ []
     let list' theid　=　concatMap (findKey lCMap) ["*SrcAhead", dfFileName setting, theid, "*SrcBack"]
     let files = case list of
@@ -58,6 +58,7 @@ buildMain args@(lang:isDB:list) = do
     _ <- SP.waitForProcess hp
     return ()
 
+buildMain _ = error "bad command!"
 
 makeMakeFileStep isDebug fName=[
         "*Compiler",

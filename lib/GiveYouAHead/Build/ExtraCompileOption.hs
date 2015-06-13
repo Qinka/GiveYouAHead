@@ -34,7 +34,7 @@ getOptionsFromFile nM oB oE fn = do
 
 getOptBegin oB inStr = rt
     where
-            (_:rt) = dropWhile (/=oB) inStr
+            rt = dropWhile (/=oB) inStr
 
 getOptEnd oE inStr = rt
     where

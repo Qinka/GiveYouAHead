@@ -9,14 +9,14 @@ import System.IO
 --inside
 import GiveYouAHead.Common
 import Data.GiveYouAHead
-
+import Data.List
 
 
 
 getSetting :: IO Settings
 getSetting = do
     gDD <- getDataDir
-    stSrc <- readFile (gDD++"/data/setting.dat")
+    stSrc <- readFile (gDD++"/setting.dat")
     return (read stSrc ::Settings)
 
 settings :: IO ()
@@ -36,12 +36,12 @@ cmdSwitchSetting :: [String] -> IO ()
 nullSetting :: [String] -> IO ()
 
 nullSetting _  = do
-    putStrLn "input error"            --输入的命令有误
+    putStrLn "input error"            --
     return ()
 
 baseSetting (sh:fn:ss:_) = do
     gDD <- getDataDir
-    hD <- openFile (gDD ++ "/data/setting.dat") ReadMode
+    hD <- openFile (gDD ++ "/setting.dat") ReadMode
     stSrc <- hGetLine  hD
     let st = read stSrc :: Settings
     hClose hD
@@ -50,8 +50,9 @@ baseSetting (sh:fn:ss:_) = do
         fn' = if fn == "_" then dfFileName st else fn
         ss' = if ss == "-" then sysShell st else ss
         in
-            writeFile (gDD ++ "/data/setting.dat") (show (Settings sh' fn' ss'))
+            writeFile (gDD ++ "/setting.dat") (show (Settings sh' fn' ss'))
     return ()
+baseSetting _ = error "bad command!"
 
 cmdSwitchSetting (fileName:key:count':_) = do
     gDD <- getDataDir
@@ -59,3 +60,32 @@ cmdSwitchSetting (fileName:key:count':_) = do
     let count = read count' :: Int
     writeFile (gDD ++ fileName) (show $ changeSwitchStatus iCMap key count)
     return ()
+
+cmdSwitchSetting _ = error "bad command!"
+writeData :: FilePath                               -- %UAD%/GiveYouAhead/
+          -> String                                 -- the things you want to write
+          -> IO () 
+
+writeData fpath' src = do
+    gDD <- getDataDir
+    let fpath = gDD ++ "/" ++ fpath'
+    writeFile fpath src
+    return ()
+
+dropRepeated :: (Eq a)=> [a] -> [a]
+dropRepeated [] = []
+dropRepeated (x:[]) = [x]
+dropRepeated (x:y:xs)
+    | x == y = dropRepeated (x:xs)
+    | otherwise = x:dropRepeated (y:xs)
+
+
+dropDelListRepeatedAndAdd :: [String] -> IO ()
+dropDelListRepeatedAndAdd xs = do
+        dir <- getDataDir
+        hD <- openFile (dir++"/delList.dat") ReadMode
+        stSrc <- hGetLine hD
+        hClose hD
+        putStrLn stSrc
+        writeFile (dir ++ "/delList.dat") $ show $ dropRepeated $ sort $ (++) xs (read stSrc ::[String])
+        return ()
