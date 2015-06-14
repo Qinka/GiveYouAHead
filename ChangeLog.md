@@ -1,5 +1,9 @@
 # Revision history for GiveYouAHead
 
-## 0.2.0.0  -- YYYY-mm-dd
+## 0.2.0.0  -- 2015.6.*
 
-* First version. Released on an unsuspecting world.
+* a new release version after 0.1.* . 
+
+## 0.1.0.0 -- 2015.*
+
+* old edition
