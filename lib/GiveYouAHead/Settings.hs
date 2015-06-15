@@ -70,7 +70,8 @@ writeDataFrom :: Show a
               -> a                                  -- the one which can show
               -> IO ()
 writeDataFrom fpath datas = do
-  return (writeData fpath $ show datas)
+  writeData fpath $ show datas
+  return ()
   
 writeData fpath' src = do
     gDD <- getDataDir
