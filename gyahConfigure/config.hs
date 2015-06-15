@@ -169,7 +169,7 @@ langHaskellCMap = zip3 ons names values
               -- if the language needs to import some librarys or somethings like that
               -- for Haskell it is : import Module-Name
               --the front part
-              "import",
+              "import ", --here needs a spcae
               --the behind part
               "\n", -- the \n is necessary, unless the language's import does not have to breaklines
               -- just only the file's extension (without point/dot)
@@ -257,8 +257,8 @@ configureFromThisFile = do
       -- if you don't want to do one of those, just add note/commit marks,
       --
 
-      -- configure persionCMap
-      writeDataFrom "persion.cmap" persionCMap
+      -- configure personCMap
+      writeDataFrom "person.cmap" persionCMap
 
       -- configure basic delete list
       dropDelListRepeatedAndAdd baseDelList

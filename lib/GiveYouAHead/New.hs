@@ -34,7 +34,7 @@ newMain (lang:idNum:iL) = do
 newMain _ = error "bad command!"
 getSrc :: CommandMap -> [String] -> [String]
 getSrc nMap iL =
-    map f $ h noteText ++ importText iL ++ templateText
+    (map f $ h noteText) ++ importText iL ++ templateText
     where
         f = (++"\n") . g
         g = addNoteMark $ findKey nMap "*NoteMark"

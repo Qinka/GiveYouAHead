@@ -14,5 +14,3 @@ getDataDir = getAppUserDataDirectory "GiveYouAHead"
 
 getFileMainName :: String -> String
 getFileMainName = reverse . dropWhile (/= '.') . reverse
-
-

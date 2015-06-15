@@ -72,7 +72,7 @@ writeDataFrom :: Show a
 writeDataFrom fpath datas = do
   writeData fpath $ show datas
   return ()
-  
+
 writeData fpath' src = do
     gDD <- getDataDir
     let fpath = gDD ++ "/" ++ fpath'
