@@ -1,4 +1,4 @@
-module AConfig where
+module GYAHConfig where
 
 import Data.GiveYouAHead
 
@@ -6,6 +6,8 @@ import GiveYouAHead.Settings
 import GiveYouAHead.Common
 
 
+import System.Directory
+import System.Environment
 
 -- there is the datas ,you can edit it if necessary.
 
@@ -126,7 +128,7 @@ compilerGCCCMap = zip3 ons names values
       -- this is the one you'd better not to change
       names = ["*Compiler","*Debug","*Object"]
       -- this is the one you can change, if necessary
-      valuse = [
+      values = [
             -- just the way how system shell call compiler
             "gcc",
             -- tell the compiler that you want to debug this
@@ -138,7 +140,7 @@ compilerGCCCMap = zip3 ons names values
         ]
 -- the commandmap of Haskell
 langHaskellCMap :: CommandMap
-langHaskellCMap = zip3 ons name values
+langHaskellCMap = zip3 ons names values
     where
       ons = repeat On
       -- this you'd better not to change, unless you know how it works and realy necessary
@@ -181,7 +183,7 @@ compilerGHCCMap = zip3 ons names values
     -- this is the one you'd better not to change
     names = ["*Compiler","*Debug","*Object"]
     -- this is the one you can change, if necessary
-    valuse = [
+    values = [
           -- just the way how system shell call compiler
           "ghc",
           -- tell the compiler that you want to debug this
@@ -214,6 +216,31 @@ dlHaskellList = [
       "*.hs~"
   ]
 
+createDir :: IO()
+createDir = do
+  gDD <- getDataDir
+  iE <- doesDirectoryExist gDD
+  if iE then do
+      putStrLn "uad exist"
+    else do
+      createDirectory gDD
+  iE <- doesDirectoryExist $ gDD ++ "/shell"
+  if iE then do
+      putStrLn "shell's directory exist"
+    else do
+      createDirectory $ gDD ++ "/shell"
+  writeFile (gDD ++ "/delList.dat") (show ([]::[String]))
+  iE <- doesDirectoryExist $ gDD ++ "/compiler"
+  if iE then do
+      putStrLn "compiler's directory exist"
+    else do
+      createDirectory $ gDD ++ "/compiler"
+  iE <- doesDirectoryExist $ gDD ++ "/language"
+  if iE then do
+      putStrLn "comopiler's directory exist"
+    else do
+      createDirectory $ gDD ++ "/language"
+  return ()
 -- there is the script ,you'd better not to change it unless necessary
 
 --IO
@@ -224,7 +251,7 @@ configureFromThisFile = do
   putStrLn "\tbefore you configure this, make sure you have changed it"
   putStrLn "if you are sure, then type yes. if not, type no"
   yn <- getLine
-  if yn == "yse"
+  if yn == "yes"
     then do
       -- the list to be done
       -- if you don't want to do one of those, just add note/commit marks,
@@ -257,7 +284,7 @@ configureFromThisFile = do
       -- DO NOT ask me why I do not use PowerShell, though I am a PowerShell user
       -- somethings in above might be MS's "icon" , English is pool =_=||
       writeDataFrom "shell/cmd.cmap" cmdShellCMap
-      
+
       putStrLn "finish , aha!"
 
     else
