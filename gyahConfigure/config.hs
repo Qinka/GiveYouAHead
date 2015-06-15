@@ -215,7 +215,8 @@ dlHaskellList = [
       -- vim's backup
       "*.hs~"
   ]
-
+dlCmdList :: [String]
+dlCmdList = ["*.bat"]
 createDir :: IO()
 createDir = do
   gDD <- getDataDir
@@ -285,6 +286,8 @@ configureFromThisFile = do
       -- somethings in above might be MS's "icon" , English is pool =_=||
       writeDataFrom "shell/cmd.cmap" cmdShellCMap
 
+      -- add cmd's delete list
+      dropDelListRepeatedAndAdd dlCmdList
       putStrLn "finish , aha!"
 
     else
