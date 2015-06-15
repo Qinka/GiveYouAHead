@@ -62,10 +62,16 @@ cmdSwitchSetting (fileName:key:count':_) = do
     return ()
 
 cmdSwitchSetting _ = error "bad command!"
-writeData :: FilePath                               -- %UAD%/GiveYouAhead/
+writeData :: FilePath                               -- %UAD%/GiveYouAHead/
           -> String                                 -- the things you want to write
-          -> IO () 
-
+          -> IO ()
+writeDataFrom :: Show a
+              => FilePath                           -- based on %UAD%/GiveYouAHead
+              -> a                                  -- the one which can show
+              -> IO ()
+writeDataFrom fpath datas = do
+  return (writeData fpath $ show datas)
+  
 writeData fpath' src = do
     gDD <- getDataDir
     let fpath = gDD ++ "/" ++ fpath'
