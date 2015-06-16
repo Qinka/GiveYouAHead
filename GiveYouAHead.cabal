@@ -29,7 +29,6 @@ library
                        old-time >1.0, 
                        directory >=1.2, 
                        process >=1.2,
-                       utf8-string,
                        extra
 
   hs-source-dirs:      lib
