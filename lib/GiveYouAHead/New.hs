@@ -7,6 +7,7 @@ import GiveYouAHead.New.Import
 import GiveYouAHead.New.Note
 import GiveYouAHead.New.Template
 import GiveYouAHead.Common
+import System.IO.Extra
 
 import Data.GiveYouAHead
 
@@ -29,7 +30,9 @@ newMain (lang:idNum:iL) = do
             (On,"*noteMarkLine", concat $ replicate 30 $ findKey langCMap "*NoteMark" ),
             (On,"*timeLine","\tCreated tIme :\t"++show time),
             (On,"*probId",idNum)]
-    writeFile  (concatMap (findKey allCMap) ["*SrcAhead",dfFileName sts,idNum,"*SrcBack"]) $ concat $ getSrc allCMap iL
+    let fname = (concatMap (findKey allCMap) ["*SrcAhead",dfFileName sts,idNum,"*SrcBack"])
+    writeFileUTF8  fname $ concat $ getSrc allCMap iL
+    putStrLn $ fname ++  " created"
     return ()
 newMain _ = error "bad command!"
 getSrc :: CommandMap -> [String] -> [String]

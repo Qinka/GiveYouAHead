@@ -2,6 +2,7 @@
 
 module GiveYouAHead.Build.ExtraCompileOption where
 
+import System.IO.Extra
 getOptions :: String                                                            --note mark
            -> String                                                            --option begin
            -> String                                                            --option end
@@ -29,7 +30,7 @@ getOptEnd   :: String
 
 
 getOptionsFromFile nM oB oE fn = do
-    fSrc <- readFile fn
+    fSrc <- readFileUTF8 fn
     return $ getOptions nM oB oE $ lines fSrc
 
 getOptBegin oB inStr = rt

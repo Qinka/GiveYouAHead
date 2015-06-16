@@ -8,8 +8,12 @@ import GiveYouAHead.Common
 
 import System.Directory
 import System.Environment
+import System.IO.Extra
 
--- there is the datas ,you can edit it if necessary.
+
+-------------------------------------------------------
+-- there is the datas ,you can edit it if necessary. --
+-------------------------------------------------------
 
 --the data which hold some basic settings
 sysSetting :: Settings
@@ -215,34 +219,53 @@ dlHaskellList = [
       -- vim's backup
       "*.hs~"
   ]
+-- the delete list of shell -- cmd
 dlCmdList :: [String]
+-- just the script of cmd
 dlCmdList = ["*.bat"]
+
+
+--------------------------------------------------------------------------
+-- there is the script ,you'd better not to change it unless necessary --
+-------------------------------------------------------------------------
+
+-- to creat all the needed directorys and add some files
+--do not change this , unless very very very necessary
 createDir :: IO()
 createDir = do
   gDD <- getDataDir
+  -- app user data directory
   iE <- doesDirectoryExist gDD
   if iE then do
-      putStrLn "uad exist"
+      putStrLn "app user data directory exist"
     else do
       createDirectory gDD
+      putStrLn "app user data directory created"
+  -- the directory of shell
   iE <- doesDirectoryExist $ gDD ++ "/shell"
   if iE then do
       putStrLn "shell's directory exist"
     else do
       createDirectory $ gDD ++ "/shell"
-  writeFile (gDD ++ "/delList.dat") (show ([]::[String]))
+      putStrLn "shell's directory created"
+  -- add the files of delete list
+  writeFileUTF8 (gDD ++ "/delList.dat") (show ([]::[String]))
+  -- the directory of compiler
   iE <- doesDirectoryExist $ gDD ++ "/compiler"
   if iE then do
       putStrLn "compiler's directory exist"
     else do
       createDirectory $ gDD ++ "/compiler"
+      putStrLn "compiler's directory created"
+  -- the directory of language
   iE <- doesDirectoryExist $ gDD ++ "/language"
   if iE then do
       putStrLn "comopiler's directory exist"
     else do
       createDirectory $ gDD ++ "/language"
+      putStrLn "comopiler's directory created"
   return ()
--- there is the script ,you'd better not to change it unless necessary
+
 
 --IO
 -- write the datas to files
@@ -260,34 +283,39 @@ configureFromThisFile = do
 
       -- configure personCMap
       writeDataFrom "person.cmap" persionCMap
-
+      putStrLn "person.cmap......OK"
       -- configure basic delete list
       dropDelListRepeatedAndAdd baseDelList
-
+      putStrLn "basic delete list......OK"
       -- configure basic setting
       writeDataFrom "settings.dat" sysSetting
-
+      putStrLn "settings.dat......OK"
       -- configure C language
       writeDataFrom "language/c.cmap" langCCMap
+      putStrLn "language-c......OK"
       -- configure C's compiler : Gnu C Compiler
       writeDataFrom "compiler/gcc.cmap" compilerGCCCMap
+      putStrLn "compiler-c......OK"
       -- configure C's delete list
       dropDelListRepeatedAndAdd dlCList
-
+      putStrLn "delete list-c......OK"
       -- configure Haskell
       writeDataFrom "language/Haskell.cmap" langHaskellCMap
+      putStrLn "language-Haskell......OK"
       -- configure Haskell's compiler Glasgow Haskell Compilation
       writeDataFrom "compiler/ghc.cmap" compilerGHCCMap
+      putStrLn "compiler-Haskell......OK"
       -- configure Haskell's delete list
       dropDelListRepeatedAndAdd dlHaskellList
-
+      putStrLn "delete list-Haskell......OK"
       -- configure shell => cmd , the system-shell of MS-WindowsNT (my Windows, now, are both Windows 8.1 with Bing, my pad, and Windows 10 Insider Preview Pro, my laptop)
       -- DO NOT ask me why I do not use PowerShell, though I am a PowerShell user
       -- somethings in above might be MS's "icon" , English is pool =_=||
       writeDataFrom "shell/cmd.cmap" cmdShellCMap
-
+      putStrLn "shell-cmd......OK"
       -- add cmd's delete list
       dropDelListRepeatedAndAdd dlCmdList
+      putStrLn "delete list-cmd......OK"
       putStrLn "finish , aha!"
 
     else
