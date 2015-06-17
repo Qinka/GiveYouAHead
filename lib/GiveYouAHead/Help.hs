@@ -4,6 +4,10 @@ module GiveYouAHead.Help where
 --outside
 import System.Environment
 
+--insdie
+import GiveYouAHead.Version
+
+
 helpMain ::IO()
 
 helpMain = do
