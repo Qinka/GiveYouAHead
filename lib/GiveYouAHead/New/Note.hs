@@ -29,7 +29,11 @@ makeNotes = [
     "\n",
     "\tThis file is auto--created by GiveYouAHead.\n",
     "\tGiveYouAHead is written by Qinka (qinka@live.com) in Haskell.\n",
+<<<<<<< HEAD
     "\tVersion "++ gyahver ++"\n",
+=======
+    "\tVersion 0.2.2.0\n",
+>>>>>>> 5812e13d3569521863a8128c3f7e00a5abd431fb
     "\n",
     "\tHomepage: https://github.com/Qinka/GiveYouAHead\n",
     "\tBug report: https://github.com/Qinka/GiveYouAHead/issues\n",
