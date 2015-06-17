@@ -8,7 +8,6 @@ import GiveYouAHead.Common
 
 import System.Directory
 import System.Environment
-import System.IO.Extra
 
 
 -------------------------------------------------------
