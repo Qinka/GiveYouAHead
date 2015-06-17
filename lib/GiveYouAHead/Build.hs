@@ -62,7 +62,7 @@ buildMain (lang:isDB:list) = do
         checkEC ExitSuccess = do
             putStrLn "Build Successfully."
         checkEC (ExitFailure id) =do
-            putStrLn $ "Build failure.. the ExitCode is " ++ show id 
+            putStrLn $ "Build failure.. the ExitCode is " ++ show id
             in
                 checkEC exCode
     return ()

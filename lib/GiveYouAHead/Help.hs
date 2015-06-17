@@ -9,7 +9,7 @@ helpMain ::IO()
 helpMain = do
     progName <- getProgName
     putStrLn $ unlines [
-        "\tGiveYouAHead\t\t\t version 0.2.2.0 ",
+        "\tGiveYouAHead\t\t\t version " ++ gyahver,
         "\tCommand :",
         "\tCreate a new file ",
         "\t\t"++progName++" new [language] [id] [the list of import]",
@@ -19,7 +19,7 @@ helpMain = do
         "\tClean the directory's useless files",
         "\t\t"++progName++" clean",
         "",
-        "\tGiveYouAHead\t\t\t版本 0.2.2.0",
+        "\tGiveYouAHead\t\t\t版本 " ++ gyahver,
         "\t使用帮助",
         "\t命令：",
         "\t创建新文件",
