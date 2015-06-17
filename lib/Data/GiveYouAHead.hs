@@ -3,7 +3,7 @@
 module Data.GiveYouAHead where
 
 --import System.IO
-import System.IO.Extra
+import GiveYouAHead.Common
 --Switch
 
 data Switch = Off | On
@@ -34,7 +34,7 @@ delNewLine = concat.lines
 getCmdMap :: FilePath -> IO CommandMap
 
 getCmdMap fpath = do
-    src' <- readFileUTF8 fpath
+    src' <- readF fpath
     let src = delNewLine src'
     return (read src :: CommandMap)
 
@@ -64,5 +64,5 @@ getSettings :: FilePath
             -> IO Settings
 
 getSettings fPath = do
-    src <- readFileUTF8 fPath
+    src <- readF fPath
     return (read src :: Settings)

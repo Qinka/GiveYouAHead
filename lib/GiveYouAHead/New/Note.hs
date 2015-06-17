@@ -1,6 +1,9 @@
 --FP
 module GiveYouAHead.New.Note where
 
+import GiveYouAHead.Version
+
+
 addNoteMark ::  String --mk
             ->  String --lines
             ->  String
@@ -26,7 +29,7 @@ makeNotes = [
     "\n",
     "\tThis file is auto--created by GiveYouAHead.\n",
     "\tGiveYouAHead is written by Qinka (qinka@live.com) in Haskell.\n",
-    "\tVersion 0.2.0.0\n",
+    "\tVersion "++ gyahver ++"\n",
     "\n",
     "\tHomepage: https://github.com/Qinka/GiveYouAHead\n",
     "\tBug report: https://github.com/Qinka/GiveYouAHead/issues\n",

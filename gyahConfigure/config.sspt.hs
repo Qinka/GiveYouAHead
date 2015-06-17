@@ -8,10 +8,10 @@ import GiveYouAHead.Common
 
 import System.Directory
 import System.Environment
-<<<<<<< HEAD
-=======
-
->>>>>>> dac6ed1ff3529be1f84f06c8c012768f4cfbd1b8
+import System.IO.Extra
+---------------------------------------------------------------------
+-- this is a version for our Software School Programming Trainning --
+---------------------------------------------------------------------
 
 
 -------------------------------------------------------
@@ -42,7 +42,7 @@ persionCMap = zip3 ons names values
       values = [
           -- *TitleLine the one which will be printed on you code's notes or commits
           -- and you might need a \t at the begin of each line
-          "\tSoftware School Programming Trainning",
+          "\t西安电子科技大学软件学院计算机程序设计实训",
           -- *WriterLine the one which included some information of you self
           --and it will be printed on you code's notes or commits.
           -- \t might needed
@@ -237,8 +237,6 @@ dlCmdList = ["*.bat"]
 createDir :: IO()
 createDir = do
   gDD <- getDataDir
-  --if you don't want UTF8 you can change it to ""
-  writeFile (gDD ++ "/defaultencoding") "UTF8"
   -- app user data directory
   iE <- doesDirectoryExist gDD
   if iE then do
@@ -254,7 +252,7 @@ createDir = do
       createDirectory $ gDD ++ "/shell"
       putStrLn "shell's directory created"
   -- add the files of delete list
-  writeF (gDD ++ "/delList.dat") (show ([]::[String]))
+  writeFileUTF8 (gDD ++ "/delList.dat") (show ([]::[String]))
   -- the directory of compiler
   iE <- doesDirectoryExist $ gDD ++ "/compiler"
   if iE then do

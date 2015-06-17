@@ -5,7 +5,6 @@ module GiveYouAHead.Settings  where
 --outside
 import Control.Monad
 import System.IO
-import System.IO.Extra
 
 --inside
 import GiveYouAHead.Common
@@ -17,7 +16,7 @@ import Data.List
 getSetting :: IO Settings
 getSetting = do
     gDD <- getDataDir
-    stSrc <- readFileUTF8 (gDD++"/setting.dat")
+    stSrc <- readF (gDD++"/setting.dat")
     return (read stSrc ::Settings)
 
 settings :: IO ()
@@ -51,7 +50,7 @@ baseSetting (sh:fn:ss:_) = do
         fn' = if fn == "_" then dfFileName st else fn
         ss' = if ss == "-" then sysShell st else ss
         in
-            writeFileUTF8 (gDD ++ "/setting.dat") (show (Settings sh' fn' ss'))
+            writeF (gDD ++ "/setting.dat") (show (Settings sh' fn' ss'))
     return ()
 baseSetting _ = error "bad command!"
 
@@ -59,7 +58,7 @@ cmdSwitchSetting (fileName:key:count':_) = do
     gDD <- getDataDir
     iCMap <- getCmdMap (gDD ++ fileName)
     let count = read count' :: Int
-    writeFileUTF8 (gDD ++ fileName) (show $ changeSwitchStatus iCMap key count)
+    writeF (gDD ++ fileName) (show $ changeSwitchStatus iCMap key count)
     return ()
 
 cmdSwitchSetting _ = error "bad command!"
@@ -77,7 +76,7 @@ writeDataFrom fpath datas = do
 writeData fpath' src = do
     gDD <- getDataDir
     let fpath = gDD ++ "/" ++ fpath'
-    writeFileUTF8 fpath src
+    writeF fpath src
     return ()
 
 dropRepeated :: (Eq a)=> [a] -> [a]
@@ -95,5 +94,5 @@ dropDelListRepeatedAndAdd xs = do
         stSrc <- hGetLine hD
         hClose hD
         putStrLn stSrc
-        writeFileUTF8 (dir ++ "/delList.dat") $ show $ dropRepeated $ sort $ (++) xs (read stSrc ::[String])
+        writeF (dir ++ "/delList.dat") $ show $ dropRepeated $ sort $ (++) xs (read stSrc ::[String])
         return ()
