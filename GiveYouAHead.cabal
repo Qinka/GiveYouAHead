@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                GiveYouAHead
-version:             0.2.0.9
+version:             0.2.0.12
 synopsis:            to auto-do somethings
 description:         to auto-do somethings
 homepage:            https://github.com/Qinka/GiveYouAHead/
