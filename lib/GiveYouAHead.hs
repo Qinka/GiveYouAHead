@@ -24,7 +24,7 @@ doGyah (cmd:xs) =
         "clean"         -> if null xs then clean else help
         "help"          -> help
         _               -> help
-doGyah _ = error "bad command!"
+doGyah _ =  help
 
 gyah :: IO()
 gyah = do

@@ -8,10 +8,6 @@ import GiveYouAHead.Common
 
 import System.Directory
 import System.Environment
-<<<<<<< HEAD
-=======
-
->>>>>>> dac6ed1ff3529be1f84f06c8c012768f4cfbd1b8
 
 
 -------------------------------------------------------

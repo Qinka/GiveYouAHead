@@ -67,7 +67,7 @@ buildMain (lang:isDB:list) = do
                 checkEC exCode
     return ()
 
-buildMain _ = error "bad command!"
+buildMain _ = putStrLn "bad command!"
 
 makeMakeFileStep isDebug fName=[
         "*Compiler",

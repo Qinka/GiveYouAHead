@@ -29,7 +29,7 @@ newMain (lang:idNum:iL) = do
             (On,"*noteMarkLine", concat $ replicate 30 $ findKey langCMap "*NoteMark" ),
             (On,"*timeLine","\tCreated tIme :\t"++show time),
             (On,"*probId",idNum)]
-    let fname = (concatMap (findKey allCMap) ["*SrcAhead",dfFileName sts,idNum,"*SrcBack"])
+    let fname = concatMap (findKey allCMap) ["*SrcAhead",dfFileName sts,idNum,"*SrcBack"]
     writeF  fname $ concat $ getSrc allCMap iL
     putStrLn $ fname ++  " created"
     return ()

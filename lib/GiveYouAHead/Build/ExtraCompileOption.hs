@@ -38,7 +38,7 @@ getOptionsFromFile nM oB oE fn = do
 getOptBegin oB inStr = rt
     where
             rt' = dropWhile (/=oB) inStr
-            (x:rt) = case length rt' of
+            (_:rt) = case length rt' of
                 0 -> ["",""]
                 1 -> ["",""]
                 _ -> rt'

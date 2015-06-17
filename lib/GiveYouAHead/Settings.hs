@@ -52,7 +52,7 @@ baseSetting (sh:fn:ss:_) = do
         in
             writeF (gDD ++ "/setting.dat") (show (Settings sh' fn' ss'))
     return ()
-baseSetting _ = error "bad command!"
+baseSetting _ = putStrLn "bad command!"
 
 cmdSwitchSetting (fileName:key:count':_) = do
     gDD <- getDataDir
@@ -61,7 +61,7 @@ cmdSwitchSetting (fileName:key:count':_) = do
     writeF (gDD ++ fileName) (show $ changeSwitchStatus iCMap key count)
     return ()
 
-cmdSwitchSetting _ = error "bad command!"
+cmdSwitchSetting _ = putStrLn "bad command!"
 writeData :: FilePath                               -- %UAD%/GiveYouAHead/
           -> String                                 -- the things you want to write
           -> IO ()
