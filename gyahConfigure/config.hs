@@ -8,7 +8,7 @@ import GiveYouAHead.Common
 
 import System.Directory
 import System.Environment
-import System.IO.Extra
+
 
 
 -------------------------------------------------------
@@ -234,6 +234,8 @@ dlCmdList = ["*.bat"]
 createDir :: IO()
 createDir = do
   gDD <- getDataDir
+  --if you don't want UTF8 you can change it to ""
+  writeFile (gDD ++ "/defaultencoding") "UTF8"
   -- app user data directory
   iE <- doesDirectoryExist gDD
   if iE then do
@@ -249,7 +251,7 @@ createDir = do
       createDirectory $ gDD ++ "/shell"
       putStrLn "shell's directory created"
   -- add the files of delete list
-  writeFileUTF8 (gDD ++ "/delList.dat") (show ([]::[String]))
+  writeF (gDD ++ "/delList.dat") (show ([]::[String]))
   -- the directory of compiler
   iE <- doesDirectoryExist $ gDD ++ "/compiler"
   if iE then do

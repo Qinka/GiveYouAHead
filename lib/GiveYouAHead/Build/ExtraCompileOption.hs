@@ -2,7 +2,9 @@
 
 module GiveYouAHead.Build.ExtraCompileOption where
 
-import System.IO.Extra
+import GiveYouAHead.Common
+
+--import System.IO.Extra
 getOptions :: String                                                            --note mark
            -> String                                                            --option begin
            -> String                                                            --option end
@@ -30,12 +32,17 @@ getOptEnd   :: String
 
 
 getOptionsFromFile nM oB oE fn = do
-    fSrc <- readFileUTF8 fn
+    fSrc <- readF fn
     return $ getOptions nM oB oE $ lines fSrc
 
 getOptBegin oB inStr = rt
     where
-            rt = dropWhile (/=oB) inStr
+            rt' = dropWhile (/=oB) inStr
+            (x:rt) = case length rt' of
+                0 -> ["",""]
+                1 -> ["",""]
+                _ -> rt'
+
 
 getOptEnd oE inStr = rt
     where
@@ -50,4 +57,4 @@ delNoteMark [] str = str
 delNoteMark _ [] = []
 delNoteMark (n:nM) (s:str)
     | n == s = delNoteMark nM str
-    | otherwise = error "!?!why?"
+    | otherwise = s:str

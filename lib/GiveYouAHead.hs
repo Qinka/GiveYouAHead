@@ -7,7 +7,6 @@ import GiveYouAHead.Clean
 --import GiveYouAHead.Common
 import GiveYouAHead.Help
 --import Data.GiveYouAHead
-import System.IO.Extra
 
 gyahMain :: [String]
          -> IO ()

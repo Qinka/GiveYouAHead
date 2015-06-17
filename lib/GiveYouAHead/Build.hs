@@ -7,7 +7,7 @@ module GiveYouAHead.Build where
 import System.Directory
 import qualified System.Process as  SP
 import GHC.IO.Exception
-import System.IO.Extra
+
 
 --inside
 import GiveYouAHead.Build.FilesList
@@ -50,7 +50,7 @@ buildMain (lang:isDB:list) = do
     extras <- returnExtras (findKey lCMap "*NoteMark") (findKey lCMap "*COB") (findKey lCMap "*COE") files
     let allMap = allMap' ++ zip3 (repeat On) (map ("*extra"++) files) extras
     print files
-    writeFileUTF8
+    writeF
         (concatMap (findKey allMap) [".makefile", "*ShellFileBack"])
         (concatMap (findKey allMap) (makeMakeFile (read isDB :: Bool) files))
     (_,_,_,hp) <- SP.createProcess $
@@ -61,8 +61,8 @@ buildMain (lang:isDB:list) = do
     let
         checkEC ExitSuccess = do
             putStrLn "Build Successfully."
-        checkEC (ExitFailure id) =do
-            putStrLn $ "Build failure.. the ExitCode is " ++ show id
+        checkEC (ExitFailure num) =do
+            putStrLn $ "Build failure.. the ExitCode is " ++ show num
             in
                 checkEC exCode
     return ()
