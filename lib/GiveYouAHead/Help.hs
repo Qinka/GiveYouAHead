@@ -39,5 +39,7 @@ helpMain = do
         "\tBug report: https://github.com/Qinka/GiveYouAHead/issues",
         "\t主页  https://github.com/Qinka/GiveYouAHead/",
         "\tBUG报告  https://github.com/Qinka/GiveYouAHead/issues",
+        "You might need run config.hs first, which you need clone or copy from repo.",
+        "你或许需要先执行 config.hs ，而你可以在仓库中找到 ",
         ""
         ]

@@ -33,5 +33,7 @@ makeNotes = [
     "\n",
     "\tHomepage: https://github.com/Qinka/GiveYouAHead\n",
     "\tBug report: https://github.com/Qinka/GiveYouAHead/issues\n",
+    "\tHackage(Module): http://hackage.haskell.org/package/GiveYouAHead\n",
+    "\tHackage(Binary): http://hackage.haskell.org/package/gyah-bin\n",
     "\n",
     "*noteMarkLine","\n"]
