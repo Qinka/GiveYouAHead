@@ -33,13 +33,14 @@ getOptEnd   :: String
 
 getOptionsFromFile nM oB oE fn = do
     fSrc <- readF fn
-    return $ getOptions nM oB oE $ lines fSrc
+    let rt = getOptions nM oB oE $ lines fSrc
+    return rt
 
 getOptBegin oB inStr = rt
     where
             rt' = dropWhile (/=oB) inStr
             (_:rt) = case length rt' of
-                0 -> ["",""]
+                0 -> ["", ""]
                 1 -> ["",""]
                 _ -> rt'
 

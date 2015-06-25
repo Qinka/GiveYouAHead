@@ -47,7 +47,7 @@ buildMain (lang:isDB:list) = do
     let files = case list of
                  [] -> getFilesList (findKey lCMap "*FE") gC
                  _ -> getFilesList (findKey lCMap "*FE") $　map list' list
-    extras <- returnExtras (findKey lCMap "*NoteMark") (findKey lCMap "*COB") (findKey lCMap "*COE") files
+    extras <- returnExtras (findKey allMap' "*NoteMark") (findKey lCMap "*EOB") (findKey lCMap "*EOE") files
     let allMap = allMap' ++ zip3 (repeat On) (map ("*extra"++) files) extras
     print files
     writeF

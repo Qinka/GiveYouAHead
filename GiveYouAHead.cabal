@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                GiveYouAHead
-version:             0.2.2.0
+version:             0.2.2.1
 synopsis:            to auto-do somethings
 description:         to auto-do somethings
 homepage:            https://github.com/Qinka/GiveYouAHead/
@@ -25,8 +25,8 @@ library
   exposed-modules:     GiveYouAHead, GiveYouAHead.Version, GiveYouAHead.Settings, GiveYouAHead.New, GiveYouAHead.Help, GiveYouAHead.Common, GiveYouAHead.Clean, GiveYouAHead.Build, GiveYouAHead.New.Template, GiveYouAHead.New.Note, GiveYouAHead.New.Import, GiveYouAHead.Build.FilesList, GiveYouAHead.Build.ExtraCompileOption, Data.GiveYouAHead
   -- other-modules:
   -- other-extensions:
-  build-depends:       base >=4.8,
-                       old-time >1.0,
+  build-depends:       base >=4.8 && <=5.1,
+                       old-time >1.0 && <=2 ,
                        directory >=1.2,
                        process >=1.2,
                        extra >=1.0
