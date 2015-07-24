@@ -20,4 +20,6 @@ cabal.sandbox.config
 *.cabal~
 *.gitignore~
 config.sspt.qinka.hs
-.old
+*.aux
+*.log
+*.synctex
