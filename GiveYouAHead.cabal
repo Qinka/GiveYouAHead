@@ -20,9 +20,13 @@ tested-with: GHC ==7.10.1
 
 library
     exposed-modules:
+        Data.GiveYouAHead
         Data.GiveYouAHead.Json
+        Data.GiveYouAHead.Json.DelList
         Date.GiveYouAHead
         GiveYouAHead.Init
+        Localization.GiveYouAHead
+        Localization.GiveYouAHead.Test
     exposed: False
     build-depends:
         base >4.7

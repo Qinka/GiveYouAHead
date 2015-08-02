@@ -1,23 +1,18 @@
 -----------------------------------------------------------------------------
 --
--- Module      :  Main
--- Copyright   :  Main.hs
+-- Module      :  Localization.GiveYouAHead.Test
+-- Copyright   :  2015 (C) Qinka <qinka@live.com>
 -- License     :  AllRightsReserved
 --
--- Maintainer  :
--- Stability   :
--- Portability :
---
--- |
+-- Maintainer  :  qinka@live.com
+-- Stability   :  GiveYouAHead
 --
 -----------------------------------------------------------------------------
 
-module Main (
-    main
+module Localization.GiveYouAHead.Test (
+
 ) where
 
-import Test.DocTest
 
-main = doctest ["-isrc", "src/Main.hs"]
 
 
