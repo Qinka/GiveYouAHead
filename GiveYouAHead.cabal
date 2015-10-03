@@ -1,0 +1,33 @@
+-- GiveYouAHead
+
+name: GiveYouAHead
+version: 0.2.7.0
+synopsis: A small tool
+description: This is a command line tool which will help students to manage there homework-codes, if they do not want to use GNU-make, cmake, or others.
+homepage: https://github.com/Qinka/GiveYouAHead
+license: BSD3
+licensefile: license/license
+author: Qinka
+maintainer: qinka@live.com
+copyright: Qinka (C) 2015
+bug-reports: https://github.com/Qinka/GiveYouAHead/issues
+build-type: Simple
+extra-source-files: ChangeLog.md
+cabal-version: >= 1.10
+
+source-repository head
+  type: git
+  location: https://github.com/Qinka/GiveYouAHead.git
+
+library
+  hs-source-dirs: lib
+  default-language: Haskell2010
+  ghc-options: -Wall -O2
+  build-depends:    base >=4.8 && <=5.1
+                  , old-time >1.0 && <=2
+                  , directory >=1.2
+                  , process >=1.2
+                  , extra >=1.0
+                  , aeson > 0.7
+                  , bytestring
+  exposed-modules:
