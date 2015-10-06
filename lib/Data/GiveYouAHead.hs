@@ -6,12 +6,16 @@
 module Data.GiveYouAHead
     (
       USettings(..),
+      CommandMap,
       turnSwitch,
       findKey,
       delNewLine,
       getCmdMap,
       changeSwitchStatus,
-      Switch(..)
+      Switch(..),
+      Template(..),
+      toTemplate,
+      toText
     ) where
 
       import GiveYouAHead.Common
@@ -53,3 +57,25 @@ module Data.GiveYouAHead
       data USettings = USettings{
           sysShell ::String
         }
+
+
+      data Template = Macro String | Text String | Space | LF
+
+      toTemplate :: [String] -> [Template]
+      toTemplate [] = []
+      toTemplate (x:xs) = mark:toTemplate xs
+        where
+          ('\\':cmd) = x
+          mark = case head x of
+            '\\' -> case cmd of
+              "n" -> LF
+              "space" -> Space
+              y -> Macro y
+            _ -> Text x
+
+      toText :: CommandMap -> [Template] -> [String]
+      toText _ [] = []
+      toText cm (Macro x:xs) = findKey cm x : toText cm xs
+      toText cm (Text x:xs) = x : toText cm xs
+      toText cm (LF:xs) = "\n":toText cm xs
+      toText cm (Space:xs) = " ":toText cm xs
