@@ -19,7 +19,7 @@ module GiveYouAHead.New
           -> IO ()
 
       new tp num imp = do
-        template <- getTemplate $ "new." ++ tp
+        template <- getTemplate $ "new." ++ if null tp then "default" else tp
         time <- getClockTime
         cm <- getCM
         let cm' = importCM cm:(On,"timeNow",show time):cm

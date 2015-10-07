@@ -23,7 +23,7 @@ module GiveYouAHead.Build
             -> IO()
 
       build tp list' = do
-        us' <- getDataDir >>= getUSettings
+        us' <- getDataDir >>= (getUSettings.(++"/usettings"))
         let (Just us) =us'
         cc <- getDirectoryContents "."
         cm <- getCM

@@ -6,7 +6,7 @@ synopsis: A small tool
 description: This is a command line tool which will help students to manage there homework-codes, if they do not want to use GNU-make, cmake, or others.
 homepage: https://github.com/Qinka/GiveYouAHead
 license: BSD3
-licensefile: license/license
+license-file: license/license
 author: Qinka
 maintainer: qinka@live.com
 copyright: Qinka (C) 2015
@@ -30,4 +30,28 @@ library
                   , extra >=1.0
                   , aeson > 0.7
                   , bytestring
-  exposed-modules:
+  exposed-modules:  Data.GiveYouAHead
+                  , Data.GiveYouAHead.JSON
+                  , GiveYouAHead.Build
+                  , GiveYouAHead.Build.File
+                  , GiveYouAHead.Clean
+                  , GiveYouAHead.Common
+                  , GiveYouAHead.Config
+                  , GiveYouAHead.Help
+                  , GiveYouAHead.Init
+                  , GiveYouAHead.New
+                  , GiveYouAHead.New.Import
+                  , GiveYouAHead.New.Template
+                  , GiveYouAHead.Template
+                  , GiveYouAHead.Version
+
+
+executable gyah
+  main-is: Main.hs
+  other-modules:    Parameter
+  build-depends:    base >=4.8 && <=5.1
+                  , extra >=1.0
+                  , GiveYouAHead
+                  , directory >=1.2
+  hs-source-dirs: src
+  default-language: Haskell2010

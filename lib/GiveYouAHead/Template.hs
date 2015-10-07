@@ -17,7 +17,7 @@ module GiveYouAHead.Template
 
 
       getCM :: IO CommandMap
-      getCM = (>>=return.read)$ readF ".gyah/commonmap"
+      getCM = (>>=return.read)$ readF ".gyah/commandmap"
 
       getTemplate :: String -> IO [Template]
       getTemplate name = (>>= return.toTemplate.concatMap words.lines) $ readF $ ".gyah/template/"++name

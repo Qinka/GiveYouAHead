@@ -59,7 +59,7 @@ module Data.GiveYouAHead
         }
 
 
-      data Template = Macro String | Text String | Space | LF
+      data Template = Macro String | Text String | Space | LF deriving (Show,Read)
 
       toTemplate :: [String] -> [Template]
       toTemplate [] = []
