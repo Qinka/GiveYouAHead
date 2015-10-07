@@ -24,5 +24,8 @@ config.sspt.qinka.hs
 *.log
 *.synctex
 .old
-
+*.out
+*.pdf
+*.synctex.gz
+*.toc
 .DS_Store
