@@ -1,7 +1,41 @@
-\documentclass[UTF8]{ctexart} %  using ctex
+\documentclass[UTF8]{article} %  using ctex
 \title{Document of GiveYouAHead}
 \author{Qinka\\qinka@live.com}
+
+\usepackage{xeCJK}
+\setCJKmainfont{SimSun}
+
+\usepackage{color,titlesec,titletoc,listings}
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=red,bookmarksnumbered]{hyperref} %lstlisting settings
+%换行
+\lstset{breaklines}
+%背景色
+\lstset{backgroundcolor=\color[rgb]{0.84,1.00,0.92}{}}
+%格式
+\lstset{basicstyle=\sffamily,keywordstyle=\bfseries,commentstyle=\rmfamily\itshape,escapechar='}
+%非等宽
+\lstset{flexiblecolumns}
+%行号设置
+\lstset{numbers=left,numberstyle=\tiny}
+%针对汉字的逃逸字符
+\lstset{escapechar=`}
+
+\lstset{frame=trBL}
+%标号
+\lstset{label=sourceCtr}
+
+\renewcommand\thesection{\Roman{section}}
+
+% section 
+\titleformat{\section}[frame]{\bfseries\Huge}{\thesection}{1em}{}[]
+\titlecontents{section}[1em]{\bfseries\Large}{\thesection}{}{\titlerule*[1pt]{.}\contentspage}
+
 \begin{document}
 \maketitle
-TODO
+\newpage
+\tableofcontents
+\newpage
+\section{About}
+GiveYouAHead is a small and simple tool which is build to try helping students who are the beginners in program learning to manage their codes.
+\subsection{What is this?}
 \end{document}
