@@ -19,3 +19,9 @@ But this version will be upload to Hackage. And it might be upload to XHSK-Hacka
 ## About this branch
 
 This branch's main repo is not on the GitHub, but the BitBucket. The reason is that we will build a new repo just for the Xinghuobei, where this repo needs some documents and other things.
+
+---
+
+## About Documents
+
+You can find documents in the directory named docs. And the pdf version you can find in the released version's package or on the pages of release.  
