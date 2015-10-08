@@ -14,6 +14,14 @@ module GiveYouAHead.Help
       helpInfo :: IO()
       helpInfo = getProgName >>= (putStrLn.unlines.t)
         where
+          helpAll pN = [
+            "\n",
+            "GiveYouAHead\t\t\t version "++gyahver,
+            "\tUsage :",
+            "\n",
+            "\t\t"++pN++" new (optional){-t [template] -d [directory?} [id/name] [the list of import]",
+            "",
+            ]
           t progName = [
             "\n",
             "\n\tGiveYouAHead\t\t\t version " ++ gyahver,
@@ -27,3 +35,4 @@ module GiveYouAHead.Help
             "\t\t"++progName++" clean",
             ""
             ]
+     
