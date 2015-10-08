@@ -20,4 +20,9 @@ module GiveYouAHead.Template
       getCM = (>>=return.read)$ readF ".gyah/commandmap"
 
       getTemplate :: String -> IO [Template]
-      getTemplate name = (>>= return.toTemplate.concatMap words.lines) $ readF $ ".gyah/template/"++name
+      getTemplate name = (>>= return.toTemplate.concatMap (getWordsStep.words).(map (++" \\n")).lines) $ readF $ ".gyah/template/"++name
+
+      getWordsStep :: [String] -> [String]
+      getWordsStep [] = []
+      getWordsStep [x] = [x]
+      getWordsStep (x:xs) = x:"\\space":getWordsStep xs
