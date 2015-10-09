@@ -3,18 +3,35 @@
 name: GiveYouAHead
 version: 0.2.7.0
 synopsis: A small tool
-description: This is a command line tool which will help students to manage there homework-codes, if they do not want to use GNU-make, cmake, or others.
+description:
+  This is a command line tool which will help students to manage there homework-codes,
+  if they do not want to use GNU-make, cmake, or others.
 homepage: https://github.com/Qinka/GiveYouAHead
 license: BSD3
 license-file: license/license
 author: Qinka
 maintainer: qinka@live.com
-copyright: Qinka (C) 2015
+copyright: 2015 Qinka <qinka@live.com>
 bug-reports: https://github.com/Qinka/GiveYouAHead/issues
 build-type: Simple
 extra-source-files: ChangeLog.md
 cabal-version: >= 1.10
 
+extra-source-files:
+  docs/XeLaTeX/document.tex
+  README.md
+
+flag XinHuoBei
+  description:  A version for XingHuoBei (<-English 星火杯)
+  default:      True
+
+flag Binary
+  description: Include the binary in one package.
+  default: True
+
+flag Binary-extra
+  description: The binary of program is in another package.
+  default: False
 source-repository head
   type: git
   location: https://github.com/Qinka/GiveYouAHead.git
