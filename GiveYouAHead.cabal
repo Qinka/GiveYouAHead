@@ -1,7 +1,8 @@
 -- GiveYouAHead
+--XingHuoBei,BinaryIncluded
 
 name: GiveYouAHead
-version: 0.2.7.0-XingHuoBei_BinaryIncluded
+version: 0.2.7.0
 synopsis: A small tool
 description:
   This is a command line tool which will help students to manage there homework-codes,
