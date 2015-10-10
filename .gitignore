@@ -18,3 +18,9 @@ cabal.sandbox.config
 *.lkshw
 *.lkshs
 *.cabal~
+*.gitignore~
+config.sspt.qinka.hs
+*.aux
+*.log
+*.synctex
+.old
