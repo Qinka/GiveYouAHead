@@ -16,13 +16,20 @@ module GiveYouAHead.Template
 
 
 
-      getCM :: IO CommandMap
-      getCM = (>>=return.read)$ readF ".gyah/commandmap"
+      getCM :: Bool -> IO CommandMap
+      getCM ignoreDS= do
+        ds <- getDS ignoreDS ".gyah/defaultSuffix.commandmap"
+      (>>=return.read)$ readF ".gyah/commandmap"
 
-      getTemplate :: String -> IO [Template]
-      getTemplate name = (>>= return.toTemplate.concatMap (getWordsStep.words).(map (++" \\n")).lines) $ readF $ ".gyah/template/"++name
+      getTemplate :: Bool -> String -> IO [Template]
+      getTemplate igroneDS name = do
+        defaultSuffix <- getDS ignoreDS ".gyah/defaultSuffix.template"
+        (>>= return.toTemplate.concatMap (getWordsStep.words).(map (++" \\n")).lines) $ readF $ ".gyah/template/"++name++defaultSuffix
 
       getWordsStep :: [String] -> [String]
       getWordsStep [] = []
       getWordsStep [x] = [x]
       getWordsStep (x:xs) = x:"\\space":getWordsStep xs
+
+      getDS :: Bool -> String -> IO String
+      getDS ignore file = doseFileExist file >>= (\x -> if x && ignoreDS then readF file else return "")

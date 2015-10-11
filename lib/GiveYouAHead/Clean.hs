@@ -14,11 +14,12 @@ module GiveYouAHead.Clean
       import GiveYouAHead.Template(getTemplate,getCM)
 
 
-      clean :: IO()
+      clean :: [Bool]      -- commandmap's, template's 
+            -> IO()
 
-      clean = do
-        cm <- getCM
-        t <- getTemplate "clean"
+      clean (idscm:idst:_) = do
+        cm <- getCM idscm
+        t <- getTemplate idst "clean"
         (_,_,_,hp) <- createProcess $ shell $ concat $ toText cm t
         _ <- waitForProcess hp
         putStrLn "Cleaned!"

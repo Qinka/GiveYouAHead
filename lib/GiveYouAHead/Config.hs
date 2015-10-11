@@ -30,6 +30,7 @@ module GiveYouAHead.Config
       config :: [String] -> IO ()
       config ("addcm":cm) =
         _ul $ map (addCommandMap.read) cm
+      config ("ds":cm) = undefined
       config _ = undefined
 
       _ul :: [IO ()] -> IO ()

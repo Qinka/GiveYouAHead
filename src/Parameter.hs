@@ -11,7 +11,7 @@ module Parameter
     getOpt
     ) where
 
-      data Pm = Option String String | Args String
+      data Pm = Option String String | Flag String Bool | Args String
 
       getOpt :: [Pm] -> String -> [String]
       getOpt [] _ = []
@@ -24,7 +24,7 @@ module Parameter
       toPm [] = []
       toPm (x:xs) =
         if head x == '-'
-          then Option (getOptName x) (head xs) : toPm (tail xs)
+          then Option (getOptName xs) : toPm xs
           else Args x : toPm xs
         where
           getOptName ('-':y) = y
