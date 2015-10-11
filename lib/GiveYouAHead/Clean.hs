@@ -14,7 +14,7 @@ module GiveYouAHead.Clean
       import GiveYouAHead.Template(getTemplate,getCM)
 
 
-      clean :: [Bool]      -- commandmap's, template's 
+      clean :: [Bool]      -- commandmap's, template's
             -> IO()
 
       clean (idscm:idst:_) = do
@@ -23,3 +23,5 @@ module GiveYouAHead.Clean
         (_,_,_,hp) <- createProcess $ shell $ concat $ toText cm t
         _ <- waitForProcess hp
         putStrLn "Cleaned!"
+
+      clean _ = undefined

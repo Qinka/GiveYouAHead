@@ -48,3 +48,5 @@ module GiveYouAHead.Build
           readIgnore x = do
             y <- doesFileExist x
             if y then readF x else return ""
+
+      build _ _ _ =undefined

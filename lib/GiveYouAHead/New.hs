@@ -28,3 +28,4 @@ module GiveYouAHead.New
         return ()
         where
           importCM cm = (On,"importList",unlines.map ((findKey cm "importLeft" ++).(findKey cm "importRight" ++)) $ imp)
+      new _ _ _ _ = undefined
