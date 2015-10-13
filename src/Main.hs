@@ -21,7 +21,7 @@ module Main
       import GiveYouAHead.New(new)
       import GiveYouAHead.Build(build)
       import GiveYouAHead.Clean(clean)
-      import GiveYouAHead.Config()
+      import GiveYouAHead.Config(config)
 
       main :: IO ()
 
@@ -80,4 +80,8 @@ module Main
         getArgs >>= (\x -> changeDir $ getOpt x "t").toPm.tail
         clean (map (getFlag args) ["fullc","fullt"])
 
-      configItem = undefined
+      configItem = do
+        ("config":args') <- getArgs
+        let args = toPm args'
+        changeDir $ getOpt args "d"
+        config (argsToString args)

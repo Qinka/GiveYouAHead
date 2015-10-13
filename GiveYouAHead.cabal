@@ -37,6 +37,7 @@ library
                   , extra >=1.0
                   , aeson > 0.7
                   , bytestring
+                  , deepseq
   exposed-modules:  Data.GiveYouAHead
                   , Data.GiveYouAHead.JSON
                   , GiveYouAHead.Build

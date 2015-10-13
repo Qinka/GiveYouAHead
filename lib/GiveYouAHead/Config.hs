@@ -11,8 +11,10 @@ module GiveYouAHead.Config
     config
     ) where
 
-      import GiveYouAHead.Common(writeF,readF)
-      import Data.GiveYouAHead(CommandMap)
+      import GiveYouAHead.Common(writeF)
+      import System.IO(openFile,IOMode(..),hGetLine,hClose,hIsEOF)
+      import Data.GiveYouAHead(CommandMap,Switch(..))
+      --import Control.DeepSeq(force)
 
       getTemplateDirectory :: IO String
       getTemplateDirectory = return ".gyah/template"
@@ -22,14 +24,30 @@ module GiveYouAHead.Config
 
       addCommandMap :: CommandMap -> IO ()
       addCommandMap cm =
-        before >>= (after.show.(cm:).read)
+        before >>= (after.show.(cm++).read)
+
+      before :: IO String
+      before = do
+        h <- openFile ".gyah/commandmap" ReadMode
+        rt <- getAll h
+        hClose h
+        return rt
         where
-          before = readF ".gyah/commandmap"
-          after = writeF ".gyah/commandmap"
+          getAll handle = do
+            bool <- hIsEOF handle
+            if bool then return ""
+              else do
+                new <- hGetLine handle
+                other <- getAll handle
+                return $ other++new
+
+
+      after :: String -> IO ()
+      after = writeF ".gyah/commandmap"
 
       config :: [String] -> IO ()
-      config ("addcm":cm) =
-        _ul $ map (addCommandMap.read) cm
+      config ("addcm":x:y:_) =
+        addCommandMap [(On,x,y)]
       config ("ds":cm) = undefined
       config _ = undefined
 
