@@ -10,7 +10,7 @@ module Main
 
 
       import Prelude hiding (init)
-      import Parameter(getOpt,toPm,argsToString)
+      import Parameter(getOpt,toPm,argsToString,getFlag)
 
       import System.Environment(getArgs)
       import System.Directory(setCurrentDirectory)
@@ -21,7 +21,7 @@ module Main
       import GiveYouAHead.New(new)
       import GiveYouAHead.Build(build)
       import GiveYouAHead.Clean(clean)
-      import GiveYouAHead.Config()
+      import GiveYouAHead.Config(config)
 
       main :: IO ()
 
@@ -59,7 +59,7 @@ module Main
         changeDir $ getOpt args "d"
         let tp = head $ getOpt args "t" ++[""]
         let text = argsToString args
-        new tp (head text) (tail text)
+        new tp (head text) (tail text) (map (getFlag args) ["fullc","fullt"])
 
 
 
@@ -72,10 +72,16 @@ module Main
         let args = toPm args'
         changeDir $ getOpt args "d"
         let tp = head $ getOpt args "t" ++ [""]
-        build tp $ argsToString args
+        build tp (argsToString args) (map (getFlag args) ["fullc","fullt"])
 
       cleanItem = do
+        ("clean":args') <- getArgs
+        let args = toPm $ tail args'
         getArgs >>= (\x -> changeDir $ getOpt x "t").toPm.tail
-        clean
+        clean (map (getFlag args) ["fullc","fullt"])
 
-      configItem = undefined
+      configItem = do
+        ("config":args') <- getArgs
+        let args = toPm args'
+        changeDir $ getOpt args "d"
+        config (argsToString args)

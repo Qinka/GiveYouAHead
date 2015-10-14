@@ -13,16 +13,24 @@ module GiveYouAHead.Template
 
       import GiveYouAHead.Common(readF)
       import Data.GiveYouAHead(toTemplate,Template,CommandMap)
+      import System.Directory(doesFileExist)
 
 
 
-      getCM :: IO CommandMap
-      getCM = (>>=return.read)$ readF ".gyah/commandmap"
+      getCM :: Bool -> IO CommandMap
+      getCM ignoreDS= do
+        ds <- getDS ignoreDS ".gyah/defaultSuffix.commandmap"
+        (>>=return.read)$ readF $ ".gyah/commandmap" ++ ds
 
-      getTemplate :: String -> IO [Template]
-      getTemplate name = (>>= return.toTemplate.concatMap (getWordsStep.words).(map (++" \\n")).lines) $ readF $ ".gyah/template/"++name
+      getTemplate :: Bool -> String -> IO [Template]
+      getTemplate ignoreDS name = do
+        defaultSuffix <- getDS ignoreDS ".gyah/defaultSuffix.template"
+        (>>= return.toTemplate.concatMap (getWordsStep.words).(map (++" \\n")).lines) $ readF $ ".gyah/template/"++name++defaultSuffix
 
       getWordsStep :: [String] -> [String]
       getWordsStep [] = []
       getWordsStep [x] = [x]
       getWordsStep (x:xs) = x:"\\space":getWordsStep xs
+
+      getDS :: Bool -> String -> IO String
+      getDS ignoreDS file = doesFileExist file >>= (\x -> if x && ignoreDS then readF file else return "")

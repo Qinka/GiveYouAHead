@@ -20,16 +20,17 @@ module GiveYouAHead.Build
 
       build :: String -- build template if null means default
             -> [String] -- list
+            -> [Bool]  -- commandmap's, template's
             -> IO()
 
-      build tp list' = do
+      build tp list' (idscm:idst:_)= do
         ignore <- readIgnore ".gyah/build.ignore"
         us' <- getDataDir >>= (getUSettings.(++"/usettings"))
         let (Just us) =us'
         cc <- getDirectoryContents "."
-        cm <- getCM
-        bt <- getTemplate $ if null tp then "build.default" else "build." ++ tp
-        btstep <- getTemplate $ if null tp then "build.step.default" else "build.step" ++ tp
+        cm <- getCM idscm
+        bt <- getTemplate idst $ if null tp then "build.default" else "build." ++ tp
+        btstep <- getTemplate idst $ if null tp then "build.step.default" else "build.step." ++ tp
         writeF (".makefile" ++ findKey cm "ShellFileBack" ) $ (concat.toText (cm' cm btstep cc ignore)) bt
         (_,_,_,pHandle) <- createProcess $ shell $ sysShell us ++ " .makefile" ++ findKey cm "ShellFileBack"
         _ <- waitForProcess pHandle
@@ -47,3 +48,5 @@ module GiveYouAHead.Build
           readIgnore x = do
             y <- doesFileExist x
             if y then readF x else return ""
+
+      build _ _ _ =undefined
