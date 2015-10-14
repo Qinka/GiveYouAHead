@@ -15,7 +15,10 @@ module Data.GiveYouAHead
       Switch(..),
       Template(..),
       toTemplate,
-      toText
+      toText,
+      delcm,
+      chcm,
+      turncm
     ) where
 
       import GiveYouAHead.Common
@@ -35,6 +38,33 @@ module Data.GiveYouAHead
         | key == k =v
         |otherwise = findKey xs key
       findKey (_:xs) key = findKey xs key
+
+      delcm :: [Int] -> CommandMap -> CommandMap
+      delcm [] ys = ys
+      delcm (x:xs) ys =
+        let (as,bs) = splitAt x ys
+        in delcm (plus x xs) $ as ++ if null bs then [] else tail bs
+
+      chcm :: Int -> String -> CommandMap -> CommandMap
+      chcm i t cm =
+        if null bs then as else let ((x,y,_):xs)=bs in
+          as++(x,y,t):xs
+        where
+        (as,bs) = splitAt i cm
+
+      turncm :: Int -> CommandMap -> CommandMap
+      turncm i cm =
+        if null bs then as else let ((x,y,z):xs)=bs
+          in as++(turnSwitch x,y,z):xs
+        where
+          (as,bs) = splitAt i cm
+
+      plus :: Int -> [Int] -> [Int]
+      plus _ [] = []
+      plus x (y:ys)
+        | x<y = y-1:ys
+        |otherwise = y:ys
+
 
       delNewLine ::String -> String
       delNewLine = concat.lines
