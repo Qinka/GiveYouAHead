@@ -5,6 +5,8 @@
 \usepackage{xeCJK}
 \setCJKmainfont{SimSun}
 
+\usepackage{tabularx}
+
 \usepackage{color,titlesec,titletoc,listings}
 \usepackage[colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=red,bookmarksnumbered]{hyperref} %lstlisting settings
 %换行
@@ -40,8 +42,9 @@
 GiveYouAHead is a small and simple tool which is build to try helping students who are the beginners in program learning to manage their codes.
 \subsection{What is this?}
 This tool is just like a make-tool. You can manage your codes, and coding-homework. Teachers just need to write some templates about source, build, clean, and so on. And students just need to create or do something via using the template wrote by teachers. 
-\section{Source & Install}
-GiveYouAHead is an open-source tool. And you can get source from GitHub{https://github.com} in my repo{https://github.com/Qinka/GiveYouAHead}. And at the same time, this tool is distributed by source via hackage{http://hackage/haskell.org}.
+\section{Source \& Install}
+GiveYouAHead is an open-source tool. And you can get source from
+\href{https://github.com}{GitHub} in my \href{https://github.com/Qinka/GiveYouAHead}{repo}. And at the same time, this tool is distributed by source via hackage{http://hackage/haskell.org}.
 
 I will also distribute this tool by the binary. There will be Windows 64bit version, linux 64bit version, linux 32bit version\footnote{This version might be build under the ghc-7.6.x, but others will be build under the ghc-7.10.x}, OS X version \footnote{This will be build at os x 10.11, and the rootless is enabled.}.
 You can download these on my repo's release page.
@@ -49,6 +52,29 @@ You can download these on my repo's release page.
 \subsection{Install}
 The way install this tool, is simple. You can install 
  
+ 
+\section{The Usage of Template}
+In this section, I will tell you how to write a template of GiveYouAHead.
+\subsection{The General Usage}
+\subsection{Writing Template for New}
+When writing a template of new, there are something you have to know.
+\subsubsection{The Inner-Macros of New}
+The following table list the macros which is needed.
+\begin{center}
+    \begin{tabular}{|p{0.25\columnwidth}|p{0.4\columnwidth}|p{0.4\columnwidth}|}
+    \hline \rule[-2ex]{0pt}{5.5ex} MACRO-NAME & DESCRIPTION & NOTES \\ 
+    \hline \rule[-2ex]{0pt}{5.5ex} timeNow & By using this macro, you can get current time. & This macro already defined, you can just use it. \\ 
+    \hline \rule[-2ex]{0pt}{5.5ex} numLeft & This is about file's name. It is a macro for the number's left part of file's name. & You must define this macro by yourself. \\ 
+    \hline \rule[-2ex]{0pt}{5.5ex} numRight & This macro is same with numLeft. & You must define this macro by yourself. \\ 
+    \hline \rule[-2ex]{0pt}{5.5ex} importList & This macro is about the list of the list of importing. Use this macro, and there will be the list of import.   & This macro is inner-defined. \\ 
+    \hline \rule[-2ex]{0pt}{5.5ex} importLeft & This macro is the left part of import, such as "\#include<" & You have to define this macro, if you want to use it.  \\ 
+    \hline \rule[-2ex]{0pt}{5.5ex} importRight & This macro is smae with importLeft, such as ">" & You have to define this macro, if you want to use it. \\ 
+    \hline \rule[-2ex]{0pt}{5.5ex} E
+    \hline 
+\end{tabular} 
+
+\end{center}
+
 \end{document}
 
 

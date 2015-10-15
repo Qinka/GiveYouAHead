@@ -40,9 +40,9 @@ module GiveYouAHead.Build.File
                          -> String      -- option begin
                          -> String      -- option end
                          -> FilePath
-                         -> IO String
-      getOptionsFromFile nM oB oE=
-        (>>= return . getOptions nM oB oE .lines).readF
+                         -> IO (String,String) -- filename,eo
+      getOptionsFromFile nM oB oE fn=
+        readF fn >>= return . (\x-> (fn,x)) . getOptions nM oB oE .lines
 
       delNoteMark :: String {- note mark -} -> String -> String
       delNoteMark [] str = str

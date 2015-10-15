@@ -38,6 +38,7 @@ library
                   , aeson > 0.7
                   , bytestring
                   , deepseq
+                  , parsec
   exposed-modules:  Data.GiveYouAHead
                   , Data.GiveYouAHead.JSON
                   , GiveYouAHead.Build
@@ -48,8 +49,6 @@ library
                   , GiveYouAHead.Help
                   , GiveYouAHead.Init
                   , GiveYouAHead.New
-                  , GiveYouAHead.New.Import
-                  , GiveYouAHead.New.Template
                   , GiveYouAHead.Template
                   , GiveYouAHead.Version
 
