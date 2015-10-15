@@ -25,7 +25,7 @@ module GiveYouAHead.Template
       getTemplate :: Bool -> String -> IO [Template]
       getTemplate ignoreDS name = do
         defaultSuffix <- getDS ignoreDS ".gyah/defaultSuffix.template"
-        (>>= return.toTemplate.concatMap (getWordsStep.words).(map (++" \\n")).lines) $ readF $ ".gyah/template/"++name++defaultSuffix
+        (>>= return.toTemplate.concatMap (getWordsStep.words.(++" \\n").takeWhile (/='%')).lines) $ readF $ ".gyah/template/"++name++defaultSuffix
 
       getWordsStep :: [String] -> [String]
       getWordsStep [] = []
