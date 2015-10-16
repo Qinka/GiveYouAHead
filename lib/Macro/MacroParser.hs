@@ -7,10 +7,12 @@ module Macro.MacroParser
     (
     textE,
     macroE,
-    macroDefE
+    MacroNode(..),
+    getEither,
+    toMacro
     ) where
 
-      import Text.Parsec
+      import Text.Parsec(Parsec,many,noneOf,char,space,(<|>),parse)
       --import Control.Applicative(some)
 
       data MacroNode = Text String
@@ -20,6 +22,16 @@ module Macro.MacroParser
                      | List String [String]
                      | Lister String
                      deriving (Eq,Show)
+
+
+
+      toMacro :: String -> [MacroNode]
+      toMacro = getEither.parse textE "error"
+
+      getEither :: Show b => Either b a -> a
+      getEither (Right x) = x
+      getEither (Left x) = error $ show x
+
 
       textE :: Parsec String () [MacroNode]
       textE = do
@@ -35,6 +47,10 @@ module Macro.MacroParser
             mde <- many macroDefE
             others <- many $ textE <|> macroE
             return $ mconcat $ mde++others
+          "list" -> do
+            l <- many listE
+            others <- many $ textE <|> macroE
+            return $ mconcat $ l++others
           "include" -> do
             file <- many (noneOf "}") <* char '}'
             others <- many $ textE <|> macroE
@@ -43,7 +59,6 @@ module Macro.MacroParser
             s <- many (noneOf "}") <* char '}'
             others <- many $ textE <|> macroE
             return $ mconcat $ [Lister s]:others
-
           _ -> do
             others <- many $ textE <|> macroE
             return $ mconcat $ [Macro macroName]:others
@@ -52,7 +67,14 @@ module Macro.MacroParser
 
       macroDefE :: Parsec String () [MacroNode]
       macroDefE = do
-        macroName <- many letter <* char '{'
+        macroName <- many (noneOf " {}\\\0") <* char '{'
         macroText <- many (noneOf "}") <* char '}'
         others <- many $ textE <|> macroE
         return $ mconcat $ [MacroDef macroName macroText]:others
+
+      listE :: Parsec String () [MacroNode]       -- 不推荐定义 list
+      listE = do
+        listName <- many (noneOf "{}\\\0") <* char '{'
+        listText <- many (noneOf "}") <* char '}'  --换行分割
+        others <- many $ textE <|> macroE
+        return $ mconcat $ [List listName $ lines listText]:others
