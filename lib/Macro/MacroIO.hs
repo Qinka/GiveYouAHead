@@ -21,7 +21,20 @@ module Macro.MacroIO
       getMacroFromFile fn' =
         (>>= getInclude.toMacro.unlines.map (takeWhile (/='%')).lines) $ (>>= readF) fn
         where
-          fn = do
+          fn = if filehead == "global" then fnb else fna
+            where
+              filehead = takeWhile (/='.') fn'
+          fnb = do
+            isE <- getDataDir >>= doesFileExist.(++"/"++fn')
+            if isE then
+                liftM (++"/"++fn') getDataDir
+              else do
+                isE' <- doesFileExist $ ".gyah/" ++ fn'
+                if isE' then
+                    return $ ".gyah/" ++ fn'
+                  else
+                    error $ "macro: can not find file : "++fn'
+          fna = do
             isE <- doesFileExist $ ".gyah/" ++ fn'
             if isE then
                 return $ ".gyah/" ++ fn'

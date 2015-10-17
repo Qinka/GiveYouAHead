@@ -32,6 +32,10 @@ module Macro.MacroReplace
       toText (_,[]) = []
       toText (as,Text b:bs) = Text b : toText(as,bs)
       toText (as,Macro x:bs)= toText (as,toMacro (findMacro as x)++bs)
+      toText (as,Flag n v t:bs) = if v == findMacro as n then
+          toText (as,toMacro t++bs)
+        else
+          toText (as,bs) 
       toText (as,Lister x:bs) = toText (as,listerMake as (m,m,False)++bs)
         where
           m = toMacro x

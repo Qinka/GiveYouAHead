@@ -7,8 +7,6 @@ module GiveYouAHead.Build.File
     (
     getFilesList,
     getOptions,
-    getOptEnd,
-    getOptBegin,
     getOptionsFromFile,
     eoBE,
     eoEE,
@@ -21,7 +19,7 @@ module GiveYouAHead.Build.File
       import Text.Parsec
 
       extraOptionGet ::  (String,String,String) -> String -> Either ParseError String
-      extraOptionGet (a,b,c) = parse (eoBE a b c <|> emptyE a b c) "error" 
+      extraOptionGet (a,b,c) = parse (eoBE a b c <|> emptyE a b c) "error"
 
       eoBE :: String -> String -> String -> Parsec  String () String -- commitmark,,ob oe
       eoBE c b e = do
@@ -66,12 +64,12 @@ module GiveYouAHead.Build.File
       getOptions :: String    -- note mark
                  -> String    -- option begin
                  -> String    -- option end
-                 -> [String]  -- lined file's text
+                 -> String  -- lined file's text
                  -> String
-      getOptions nM oB oE inStr = delNoteMark nM $ concat items
-        where
-          makeItems = getOptEnd (nM ++ oE) . getOptBegin (nM ++ oB)
-          items = makeItems inStr
+      getOptions nM oB oE inStr =
+        case extraOptionGet (nM,oB,oE) inStr of
+          Right a -> a
+          Left _ -> ""
 
       getOptionsFromFile :: String      -- note mark
                          -> String      -- option begin
@@ -79,23 +77,4 @@ module GiveYouAHead.Build.File
                          -> FilePath
                          -> IO (String,String) -- filename,eo
       getOptionsFromFile nM oB oE fn=
-        readF fn >>= return . (\x-> (fn,x)) . getOptions nM oB oE .lines
-
-      delNoteMark :: String {- note mark -} -> String -> String
-      delNoteMark [] str = str
-      delNoteMark _ [] = []
-      delNoteMark (n:nM) (s:str)
-        | n == s = delNoteMark nM str
-        | otherwise = s:str
-
-      getOptBegin :: String -> [String] -> [String]
-      getOptBegin oB inStr = rt
-        where
-          rt' = dropWhile (/=oB) inStr
-          (_:rt) = case length rt' of
-            0 -> ["",""]
-            1 -> ["",""]
-            _ -> rt'
-
-      getOptEnd ::String -> [String] -> [String]
-      getOptEnd oE = takeWhile (/=oE)
+        liftM  ((\x-> (fn,x)) . getOptions nM oB oE) (readF fn)

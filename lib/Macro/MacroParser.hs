@@ -12,7 +12,7 @@ module Macro.MacroParser
     toMacro
     ) where
 
-      import Text.Parsec(Parsec,many,noneOf,char,space,(<|>),parse,oneOf)
+      import Text.Parsec(Parsec,many,noneOf,char,space,(<|>),parse,oneOf,anyChar,string)
       --import Control.Applicative(some)
 
       data MacroNode = Text String
@@ -21,6 +21,7 @@ module Macro.MacroParser
                      | Include FilePath
                      | List String [String]
                      | Lister String
+                     | Flag String String String
                      deriving (Eq)
 
       instance Show MacroNode where
@@ -30,6 +31,7 @@ module Macro.MacroParser
         show (Macro a) = "Macro "++a
         show (List a b) = "List " ++ a ++ " = " ++ show b
         show (Lister s) = "List maker " ++ s
+        show (Flag a b text) = "Flag "++a++"=="++b++" ? "++ text++" : "++"\"\""
 
 
 
@@ -73,11 +75,23 @@ module Macro.MacroParser
             -- <* oneOf "\n \0"  -- many (noneOf " \n\0") <* (char ' ' <|> char '\n' <|> char '\0')
             others <- many $ textE <|> macroE
             return $ mconcat $ [Lister s]:others
+          "flag" -> do
+            f <- many flagE
+            others <- many $ textE <|> macroE
+            return $ mconcat $ f++others
           _ -> do
             others <- many $ textE <|> macroE
             return $ mconcat $ [Macro macroName]:others
 
 
+      flagE :: Parsec String () [MacroNode]
+      flagE = do
+        flagName <- char '{' *> many (noneOf "\n {}\\\0") <* char '}'
+        flagValue <- char '{' *> many (noneOf "}") <* char '}'
+        flagText <- many anyChar <* string "\\endflag"
+        many $ char '\n'
+        others <- many $ textE <|> macroE
+        return $ mconcat $ [Flag flagName flagValue flagText]:others
 
       macroDefE :: Parsec String () [MacroNode]
       macroDefE = do
