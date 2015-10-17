@@ -19,7 +19,7 @@ module Macro.MacroIO
 
       getMacroFromFile :: FilePath -> IO [MacroNode]
       getMacroFromFile fn' =
-        (>>= getInclude.toMacro) $ (>>= readF) fn
+        (>>= getInclude.toMacro.unlines.map (takeWhile (/='%')).lines) $ (>>= readF) fn
         where
           fn = do
             isE <- doesFileExist $ ".gyah/" ++ fn'
