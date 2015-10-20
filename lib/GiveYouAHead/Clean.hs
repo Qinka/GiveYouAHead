@@ -9,19 +9,14 @@ module GiveYouAHead.Clean
     ) where
 
       import System.Process(createProcess,shell,waitForProcess)
-      import Data.GiveYouAHead(toText)
-      import GiveYouAHead.Common()
-      import GiveYouAHead.Template(getTemplate,getCM)
+      import Macro.MacroIO(getMacroFromFile)
+      import Macro.MacroReplace(splitMacroDef,toText)
 
 
-      clean :: [Bool]      -- commandmap's, template's
-            -> IO()
+      clean :: IO()
 
-      clean (idscm:idst:_) = do
-        cm <- getCM idscm
-        t <- getTemplate idst "clean"
-        (_,_,_,hp) <- createProcess $ shell $ concat $ toText cm t
+      clean = do
+        t <- getMacroFromFile "clean"
+        (_,_,_,hp) <- createProcess $ shell $ concatMap show $ toText $ splitMacroDef t
         _ <- waitForProcess hp
         putStrLn "Cleaned!"
-
-      clean _ = undefined

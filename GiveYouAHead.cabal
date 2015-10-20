@@ -49,8 +49,10 @@ library
                   , GiveYouAHead.Help
                   , GiveYouAHead.Init
                   , GiveYouAHead.New
-                  , GiveYouAHead.Template
                   , GiveYouAHead.Version
+                  , Macro.MacroIO
+                  , Macro.MacroParser
+                  , Macro.MacroReplace
 
 
 executable gyah

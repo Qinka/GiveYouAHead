@@ -43,13 +43,7 @@ module Main
       changeDir :: [String] -> IO ()
       changeDir (path:_) = setCurrentDirectory path
       changeDir [] = return ()
-{-
-      getSwitch :: String -> [String] -> [String]
-      getSwitch _ [] = []
-      getSwitch a (x:xs) = case length x of
-        1 -> if x == '-':a then [head xs] else getSwitch a xs
-        _ -> if x == "--"++a then [head xs] else getSwitch a xs
--}
+
 
 
 
@@ -59,7 +53,7 @@ module Main
         changeDir $ getOpt args "d"
         let tp = head $ getOpt args "t" ++[""]
         let text = argsToString args
-        new tp (head text) (tail text) (map (getFlag args) ["fullc","fullt"])
+        new tp (head text) (tail text)
 
 
 
@@ -72,16 +66,12 @@ module Main
         let args = toPm args'
         changeDir $ getOpt args "d"
         let tp = head $ getOpt args "t" ++ [""]
-        build tp (argsToString args) (map (getFlag args) ["fullc","fullt"])
+        build tp (argsToString args)
 
       cleanItem = do
         ("clean":args') <- getArgs
         let args = toPm $ tail args'
         getArgs >>= (\x -> changeDir $ getOpt x "t").toPm.tail
-        clean (map (getFlag args) ["fullc","fullt"])
+        clean
 
-      configItem = do
-        ("config":args') <- getArgs
-        let args = toPm args'
-        changeDir $ getOpt args "d"
-        config (argsToString args)
+      configItem = undefined

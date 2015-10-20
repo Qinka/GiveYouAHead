@@ -31,7 +31,7 @@ module Macro.MacroParser
         show (Macro a) = "Macro "++a
         show (List a b) = "List " ++ a ++ " = " ++ show b
         show (Lister s) = "List maker " ++ s
-        show (Flag a cases = "Flag "++a++"=="++show cases
+        show (Flag a cases) = "Flag "++a++"=="++show cases
 
 
 
@@ -90,14 +90,14 @@ module Macro.MacroParser
         cases <- many (caseE <|> flagEndE)
         many $ char '\n'
         others <- many $ textE <|> macroE
-        return $ mconcat $ [Flag flagName cases]:others
-      
-      caseE,flagEndE :: Parsec String () [String]
+        return $ mconcat $ [Flag flagName $ concat cases]:others
+
+      caseE,flagEndE :: Parsec String () [(String,String)]
       caseE = do
         caseName <- many (noneOf "}") <* char '}'
-        caseText <  string "\\case{" *> many anyChar
-		othercases <- many (caseE <|> flagEndE)
-        return $ (caseName,caseText):othercases
+        caseText <- string "\\case{" *> many anyChar
+        othercases <- many $ caseE <|> flagEndE
+        return $ concat $ [(caseName,caseText)]:othercases
 
       flagEndE = do
         _ <- string "\\endflag"

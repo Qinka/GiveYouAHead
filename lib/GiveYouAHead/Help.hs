@@ -39,7 +39,7 @@ module GiveYouAHead.Help
             "\t\tTo delete (a) CommandMap(s) ",
             "\t\t"++pN++" config delcm [the ids' list of the cm]",
             "\t\tTo change CommandMap's status",
-			"\t\t"++pN++" config turncm [file-name] [the list of ids] ",
+            "\t\t"++pN++" config turncm [file-name] [the list of ids] ",
             "\t\tTo change a cm's text",
             "\t\t"++pN++" config chcm [file-name] [id] [text]",
             "\n\n",
@@ -47,18 +47,5 @@ module GiveYouAHead.Help
             "\tGiveYouAHead had upload to Havkage: http://hackage.haskell.org",
             "\tBug report: https://github.com/Qinka/GiveYouAHead/issues",
             "\tLICENSE? BSD3",
-            ""
-            ]
-          t progName = [
-            "\n",
-            "\n\tGiveYouAHead\t\t\t version " ++ gyahver,
-            "\tCommand :",
-            "\tCreate a new file ",
-            "\t\t"++progName++" new [language] [id] [the list of import]",
-            "\tBuild the program(s) ",
-            "\t\t"++progName++" build [language] [isDebug]",
-            "\t\t"++progName++" build [language] [isDebug] [the list of id] ",
-            "\tClean the directory's useless files",
-            "\t\t"++progName++" clean",
             ""
             ]
