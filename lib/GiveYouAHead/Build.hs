@@ -10,13 +10,15 @@ module GiveYouAHead.Build
 
       import System.Directory(getDirectoryContents,doesFileExist)
       import System.Process(createProcess,shell,waitForProcess)
-      --import GHC.IO.Exception()
 
       import GiveYouAHead.Common(getDataDir,writeF,readF)
-      import GiveYouAHead.Template(getCM,getTemplate)
+      --import GiveYouAHead.Template(getCM,getTemplate)
       import GiveYouAHead.Build.File(getFilesList,getOptionsFromFile)
       import Data.GiveYouAHead(findKey,toText,Switch(..),USettings(..),CommandMap)
       import Data.GiveYouAHead.JSON(getUSettings)
+      import Macro.MacroParser()
+      import Macro.MacroIO()
+      import Macro.MacroReplace()
 
       build :: String -- build template if null means default
             -> [String] -- list
@@ -28,8 +30,7 @@ module GiveYouAHead.Build
         us' <- getDataDir >>= (getUSettings.(++"/usettings"))
         let (Just us) =us'
         cc <- getDirectoryContents "."
-        cm <- getCM idscm
-        bt <- getTemplate idst $ if null tp then "build.default" else "build." ++ tp
+        mnode <- getMacroFromFile idst $ if null tp then "build.default" else "build." ++ tp
         btstep <- getTemplate idst $ if null tp then "build.step.default" else "build.step." ++ tp
         eolist <- getEO cc cm ignore
         writeF (".makefile" ++ findKey cm "ShellFileBack" ) $ (concat.toText (cm' cm btstep eolist)) bt

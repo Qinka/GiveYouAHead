@@ -21,7 +21,7 @@ module Macro.MacroParser
                      | Include FilePath
                      | List String [String]
                      | Lister String
-                     | Flag String String String
+                     | Flag String [(String,String)]
                      deriving (Eq)
 
       instance Show MacroNode where
@@ -31,7 +31,7 @@ module Macro.MacroParser
         show (Macro a) = "Macro "++a
         show (List a b) = "List " ++ a ++ " = " ++ show b
         show (Lister s) = "List maker " ++ s
-        show (Flag a b text) = "Flag "++a++"=="++b++" ? "++ text++" : "++"\"\""
+        show (Flag a cases = "Flag "++a++"=="++show cases
 
 
 
@@ -87,11 +87,21 @@ module Macro.MacroParser
       flagE :: Parsec String () [MacroNode]
       flagE = do
         flagName <- char '{' *> many (noneOf "\n {}\\\0") <* char '}'
-        flagValue <- char '{' *> many (noneOf "}") <* char '}'
-        flagText <- many anyChar <* string "\\endflag"
+        cases <- many (caseE <|> flagEndE)
         many $ char '\n'
         others <- many $ textE <|> macroE
-        return $ mconcat $ [Flag flagName flagValue flagText]:others
+        return $ mconcat $ [Flag flagName cases]:others
+      
+      caseE,flagEndE :: Parsec String () [String]
+      caseE = do
+        caseName <- many (noneOf "}") <* char '}'
+        caseText <  string "\\case{" *> many anyChar
+		othercases <- many (caseE <|> flagEndE)
+        return $ (caseName,caseText):othercases
+
+      flagEndE = do
+        _ <- string "\\endflag"
+        return []
 
       macroDefE :: Parsec String () [MacroNode]
       macroDefE = do

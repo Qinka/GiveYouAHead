@@ -32,14 +32,27 @@ module Macro.MacroReplace
       toText (_,[]) = []
       toText (as,Text b:bs) = Text b : toText(as,bs)
       toText (as,Macro x:bs)= toText (as,toMacro (findMacro as x)++bs)
-      toText (as,Flag n v t:bs) = if v == findMacro as n then
-          toText (as,toMacro t++bs)
-        else
-          toText (as,bs) 
+      toText (as,Flag n c:bs) = let t = fromFlag (findMacro as n) c
+        in toText (as,t++bs) 
       toText (as,Lister x:bs) = toText (as,listerMake as (m,m,False)++bs)
         where
           m = toMacro x
       toText (_,_) = error "macro,line 38,MacroReplace"
+
+      fromFlag :: String -> [(String,String)] -> [MacroNode]
+      fromFlag _ [] = []
+      fromFlag n  ((m,t):s)
+        | n == m = let ma = toMacro t
+                       end = last ma
+                       (x,_) = head s
+                   in
+                     case end of
+                       Macro "break" -> init ma
+                       _ -> ma ++ fromFlag x s
+        | m == "@otherwise" = fromFlag "@otherwise" $ (m,t):s
+        | otherwise = fromFlag n s
+
+
 
       findMacro :: [MacroNode] -> String -> String
       findMacro (MacroDef n t:xs) m

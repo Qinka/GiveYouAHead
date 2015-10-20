@@ -12,7 +12,6 @@ module Macro.MacroIO
       import Text.Parsec()
       import System.Directory(doesFileExist)
       import Control.Monad(liftM)
-
       import Macro.MacroParser(MacroNode(..),toMacro)
       import GiveYouAHead.Common(readF,getDataDir)
 
