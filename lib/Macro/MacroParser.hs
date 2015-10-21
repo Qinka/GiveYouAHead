@@ -12,7 +12,7 @@ module Macro.MacroParser
     toMacro
     ) where
 
-      import Text.Parsec(Parsec,many,noneOf,char,space,(<|>),parse,oneOf,anyChar,string)
+      import Text.Parsec(Parsec,many,noneOf,char,space,(<|>),parse,oneOf,anyChar,string,try)
       --import Control.Applicative(some)
 
       data MacroNode = Text String
@@ -86,22 +86,44 @@ module Macro.MacroParser
 
       flagE :: Parsec String () [MacroNode]
       flagE = do
-        flagName <- char '{' *> many (noneOf "\n {}\\\0") <* char '}'
-        cases <- many (caseE <|> flagEndE)
+        flagName <- many (noneOf "\n {}\\\0") <* char '}'
         many $ char '\n'
-        others <- many $ textE <|> macroE
-        return $ mconcat $ [Flag flagName $ concat cases]:others
+        string "\\case{"
+        cases <- caseE
+        many $ char '\n'
+        return [Flag flagName cases]
 
-      caseE,flagEndE :: Parsec String () [(String,String)]
+      caseE:: Parsec String () [(String,String)]
       caseE = do
         caseName <- many (noneOf "}") <* char '}'
-        caseText <- string "\\case{" *> many anyChar
-        othercases <- many $ caseE <|> flagEndE
-        return $ concat $ [(caseName,caseText)]:othercases
-
-      flagEndE = do
-        _ <- string "\\endflag"
-        return []
+        (x,caseText) <- tE
+        -- _ <- string "\\case{"
+        othercases <- if x then return [] else caseE
+        return $ (caseName,caseText):othercases
+        where
+          {-stE = do
+            string "\\case{"
+            return (False,"")-}
+          tE = do
+            t <- many (noneOf "{\n") <* oneOf "{\n"
+            let q = t == "\\flagend"
+            let p = t == "\\case"
+            if q then
+                return (True,"")
+              else if p then
+                  return (False,"")
+                else do
+                  (x,ot) <- tE
+                  return (x,t++"\n"++ot)
+            {-case t of
+              "\\flagend" -> return (True,"")
+              "\\case{" -> return (False,"")
+              t' -> do
+                [(x,ot)] <- many tE
+                return (x,t'++"\n"++ot)-}
+          {-flagEndE = do
+            string "\\endflag"
+            return (True,"")-}
 
       macroDefE :: Parsec String () [MacroNode]
       macroDefE = do
