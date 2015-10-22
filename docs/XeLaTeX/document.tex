@@ -53,6 +53,43 @@ You can download these on my repo's release page.
 The way install this tool, is simple. You can install 
  
  
+ 
+ 
+\section{The Usage of Macro}
+
+In this section, you will know how to use macro in GiveYouAHead.
+\subsection{The Basic Usage}
+Every macro is began with the char '$\backslash$'. And some of them need parameters.
+The macro can be grouped to those groups:
+\begin{itemize}
+    \item Basic Macro
+    \item The Definition of Macro
+    \item Flag
+    \item List-Maker
+    \item Flag
+    \item Include
+\end{itemize}
+
+Some of "newline" following to the end of macro will be ignore, but some will not be ignore.
+
+FOR EXAMPLE:\\
+Macro:
+\begin{lstlisting}
+textA
+\macro_without_breakline
+textB
+\macro_with_breakline
+textC
+\end{lstlisting}
+Replaced:
+\begin{lstlisting}
+textA
+macro_without_breaklinetextB
+macro_with_breakline
+textC
+\end{lstlisting}
+\newpage
+ 
 \section{The Usage of Template}
 In this section, I will tell you how to write a template of GiveYouAHead.
 \subsection{The General Usage}
@@ -70,7 +107,6 @@ The following table list the macros which is needed.
     \hline \rule[-2ex]{0pt}{5.5ex} importLeft & This macro is the left part of import, such as "\#include<" & You have to define this macro, if you want to use it.  \\ 
     \hline \rule[-2ex]{0pt}{5.5ex} importRight & This macro is smae with importLeft, such as ">" & You have to define this macro, if you want to use it. \\ 
     \hline \rule[-2ex]{0pt}{5.5ex} E
-    \hline 
 \end{tabular} 
 
 \end{center}

@@ -11,6 +11,7 @@ module Macro.MacroReplace
     ) where
 
       import Macro.MacroParser(MacroNode(..),toMacro)
+      import Data.List(nub)
 
       type MacroT = ([MacroNode],[MacroNode])
       --          macrodefiniton,macros
@@ -25,7 +26,21 @@ module Macro.MacroReplace
 
       splitMacroDef :: [MacroNode] -> ([MacroNode],[MacroNode])
       --                            macrodefiniton,macros
-      splitMacroDef xs = splitMacroDefStep xs ([],[])
+      splitMacroDef xs = (nub as,bs)
+        where
+          (as,bs)=replaceFlag $ splitMacroDefStep xs ([],[])
+
+      replaceFlag :: MacroT -> MacroT
+      replaceFlag (as,Flag f c:bs) =
+        (xs++as,ys++bs)
+        where
+          (ps,qs) = splitMacroDef $ fromFlag f c
+          (xs,ys) = replaceFlag (ps++as,qs++bs)
+      replaceFlag (as,x:bs) =
+        (xs,x:ys)
+        where
+          (xs,ys) = replaceFlag (as,bs)
+      replaceFlag (as,[]) = (as,[])
 
 
       toText :: MacroT -> [MacroNode]
@@ -33,7 +48,7 @@ module Macro.MacroReplace
       toText (as,Text b:bs) = Text b : toText(as,bs)
       toText (as,Macro x:bs)= toText (as,toMacro (findMacro as x)++bs)
       toText (as,Flag n c:bs) = let t = fromFlag (findMacro as n) c
-        in toText (as,t++bs) 
+        in toText (as,t++bs)
       toText (as,Lister x:bs) = toText (as,listerMake as (m,m,False)++bs)
         where
           m = toMacro x
