@@ -15,6 +15,7 @@ module Macro.MacroIO
       import Macro.MacroParser(MacroNode(..),toMacro)
       import GiveYouAHead.Common(readF,getDataDir)
       import Data.List(nub)
+      import Control.Arrow(second)
 
 
       getMacroFromFile :: FilePath -> IO [MacroNode]
@@ -58,4 +59,4 @@ module Macro.MacroIO
           (l,nm) <- getInclude list' ms
           return (nub $ list'++l,im++nm)
       getInclude list (m:ms) =
-        liftM (\(x,y)->(x,m:y)) $ getInclude list ms
+        liftM (second (m:)) $ getInclude list ms
