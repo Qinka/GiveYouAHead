@@ -27,14 +27,17 @@ module GiveYouAHead.Common
       readF :: FilePath -> IO String
       readF p= getDefaultEncoding >>= step p
           where
+            first = head.head.map words.lines
             step :: String -> String -> IO String
-            step pp e= case e of
+            step pp e= case first e of
               "UTF8" -> readFileUTF8 pp
               _ -> readFile pp
 
       writeF :: FilePath -> String -> IO()
       writeF p t = getDefaultEncoding >>=
-        (\pp tt e-> case e of
+        (\pp tt e-> case first e of
             "UTF8" -> writeFileUTF8 pp tt
             _ -> writeFile pp tt
           ) p t
+        where
+          first = head.head.map words.lines

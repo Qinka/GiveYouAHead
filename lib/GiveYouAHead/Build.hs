@@ -58,7 +58,7 @@ module GiveYouAHead.Build
               l [] = return ([],[])
               l (x:xs) = do
                 (rtx,rty) <- getOptionsFromFile
-                  (findMacro mn "notemark")
+                  (findMacro mn "commitmark")
                   (findMacro mn "eobegin")
                   (findMacro mn "eoend")
                   x

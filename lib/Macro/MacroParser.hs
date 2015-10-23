@@ -79,6 +79,15 @@ module Macro.MacroParser
             f <- many flagE
             others <- many $ textE <|> macroE
             return $ mconcat $ f++others
+          "@bs" -> do
+            others <- many $ textE <|> macroE
+            return $ mconcat $ [Text "\\"]:others
+          "@lb" -> do
+            others <- many $ textE <|> macroE
+            return $ mconcat $ [Text "{"]:others
+          "@rb" -> do
+            others <- many $ textE <|> macroE
+            return $ mconcat $ [Text "}"]:others
           _ -> do
             others <- many $ textE <|> macroE
             return $ mconcat $ [Macro macroName]:others
