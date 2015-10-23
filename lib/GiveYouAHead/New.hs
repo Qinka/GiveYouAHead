@@ -25,6 +25,5 @@ module GiveYouAHead.New
         let (dls,_) = splitMacroDef lsnode
         time <- getClockTime
         let (as,bs) = splitMacroDef mnode
-        writeF (findMacro dls "numLeft"++num++findMacro dls"numRight") $ concatMap show $ toText (MacroDef "timenow" (show time):List "importList" imp:as,bs)
+        writeF (findMacro dls "numLeft"++num++findMacro dls"numRight") $ concatMap show $ toText (MacroDef "timenow" (show time):List "importList" (if null imp then [""] else imp):as,bs)
         return ()
-        where

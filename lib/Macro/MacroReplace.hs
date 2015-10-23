@@ -87,10 +87,11 @@ module Macro.MacroReplace
             _ -> isList ds c
           findList [] _ = error "error line 56,MacroReplace"
           findList (List n ms:ds) c
-            | n == c = (List n (if bool then [] else tail ms):ds,head ms,bool)
+            | n == c = (List n (if bool then [] else tail ms):ds,if bool' then "" else head ms,bool)
             | otherwise = let (as,rt,isNum) = findList ds c in (List n ms:as,rt,isNum)
             where
-              bool = null $ tail ms
+              bool' = null ms
+              bool = (||) bool' $ null $ tail ms
           findList (d:ds) c = let (ds',rt,x) = findList ds c in (d:ds',rt,x)
       listerMake as (Text b:bs,cs,x) =
         Text b:listerMake as (bs,cs,x)
