@@ -4,6 +4,9 @@ before_install:
   - "cabal install cabal-install"
   - "cabal update"
   - "cabal configure "
+  - "cabal install base"
+  - "cabal install aeson"
+  - "cabal install extra"
 install:
   - "cabal install --only-dependencies"
 
