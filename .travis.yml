@@ -2,11 +2,13 @@ language: haskell
 ghc: "7.8"
 before_install:
   - "cabal install cabal-install"
+  - "cabal --version"
   - "cabal update"
-  - "cabal install base>4.8"
+  - "cabal install base-4.8.1.0"
   - "cabal install aeson"
   - "cabal install extra"
   - "cabal configure "
+  - "cabal build"
 
 install:
   - "cabal install --only-dependencies"
