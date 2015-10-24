@@ -1,10 +1,11 @@
 language: haskell
-ghc:
-  - 7.10
-  - 7.8
-  - 7.6
-  - 7.4
-script:
-  -cabal configure --enable-tests -fFOO && cabal build && cabal test
+ghc: "7.10"
+before_script:
+  - "cabal install cabal-install"
 install:
-  - cabal install 
+  - "cabal install --only-dependencies --reorder-goals"
+
+notifications:
+  email: true
+  irc:
+    - "qinka@live.com"  
