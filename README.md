@@ -1,5 +1,5 @@
 #GiveYouAHead 0.2.7.x
-![Build Status](https://travis-ci.org/Qinka/GiveYouAHead.svg")
+[![Build Status](https://travis-ci.org/Qinka/GiveYouAHead.svg?branch=0.2.7.x)](https://travis-ci.org/Qinka/GiveYouAHead)
 
 ---
 
