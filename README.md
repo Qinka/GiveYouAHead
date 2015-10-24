@@ -1,4 +1,6 @@
 #GiveYouAHead 0.2.7.x
+![Build Status](https://travis-ci.org/Qinka/GiveYouAHead.svg")
+
 ---
 
 This is a command line tool which will help students to manage there homework-codes, if they do not want to use GNU-make, cmake, or others.

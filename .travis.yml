@@ -1,9 +1,9 @@
 language: haskell
-ghc: "7.10"
+ghc: "7.8"
 before_script:
-  - "cabal install cabal-install"
+  - "cabal install cabal-install && cabal update && cabal configure"
 install:
-  - "cabal install --only-dependencies --reorder-goals"
+  - "cabal install"
 
 notifications:
   email: true
