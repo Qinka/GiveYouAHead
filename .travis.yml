@@ -3,7 +3,7 @@ ghc: "7.8"
 before_install:
   - "cabal install cabal-install"
   - "cabal update"
-  - "cabal configure"
+  - "cabal configure --only-dependencies"
 install:
   - "cabal install"
 
