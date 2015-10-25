@@ -3,7 +3,7 @@ ghc:
   - "7.8"
   - "7.10"
 before_install:
-  - "export PATH = ~/.cabal/bin:$PATH"
+  - "export PATH=~/.cabal/bin:$PATH"
   - "cabal install cabal-install"
   - "cabal --version"
   - "cabal update"
